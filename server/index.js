@@ -4,10 +4,12 @@ const healthRoutes = require("./router/healthRoutes");
 const warfareRoutes = require("./router/warfareRoutes");
 const praiseRoutes = require("./router/praiseRoutes");
 const protectionRoutes = require("./router/protectionRoutes");
+const cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 
 app.get("/", (req, res) => {
