@@ -7,11 +7,12 @@ import React from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 export const NotificationsScreen = () => {
-  const { globalName, setGlobalName } = usePrayerAppContext();
+  const { globalName, setGlobalName, setShowPrayers } = usePrayerAppContext();
 
   useFocusEffect(
     React.useCallback(() => {
       setGlobalName("Notifications");
+      setShowPrayers(false);
     }, [])
   );
 

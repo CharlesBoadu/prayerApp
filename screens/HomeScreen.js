@@ -7,11 +7,11 @@ import React from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 export const HomeScreen = () => {
-  const { globalName, setGlobalName } = usePrayerAppContext();
+  const { globalName, setGlobalName, showPrayers } = usePrayerAppContext();
 
   useFocusEffect(
     React.useCallback(() => {
-      setGlobalName("All");
+      showPrayers ? setGlobalName(globalName) : setGlobalName("All");
     }, [])
   );
 

@@ -5,6 +5,7 @@ export const PrayerAppContext = createContext({});
 
 export const PrayerAppProvider = ({ children }) => {
   const [globalName, setGlobalName] = useState("All");
+  const [showPrayers, setShowPrayers] = useState(false);
   const [fetchedHealthPrayers, setFetchedHealthPrayers] = useState([]);
   const [fetchedWealthPrayers, setFetchedWealthPrayers] = useState([]);
   const [fetchedWarfarePrayers, setFetchedWarfarePrayers] = useState([]);
@@ -78,7 +79,9 @@ export const PrayerAppProvider = ({ children }) => {
         fetchedPraisePrayers,
         fetchedProtectionPrayers,
         globalName,
-        setGlobalName
+        setGlobalName,
+        showPrayers,
+        setShowPrayers
       }}
     >
       {children}

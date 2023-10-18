@@ -14,7 +14,6 @@ import { PrayersScreen } from "../screens/PrayersScreen";
 import { usePrayerAppContext } from "../Store/context";
 
 export const PrayerCategories = () => {
-  const [showPrayers, setShowPrayers] = useState(false);
   const categories = [
     {
       id: 1,
@@ -53,7 +52,7 @@ export const PrayerCategories = () => {
     },
   ];
   const [categoryName, setCategoryName] = useState("");
-  const { setGlobalName } = usePrayerAppContext();
+  const { setGlobalName, showPrayers, setShowPrayers } = usePrayerAppContext();
 
   const navigation = useNavigation();
 
