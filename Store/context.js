@@ -4,6 +4,7 @@ import AllFetchesApi from "./api";
 export const PrayerAppContext = createContext({});
 
 export const PrayerAppProvider = ({ children }) => {
+  const [globalName, setGlobalName] = useState("All");
   const [fetchedHealthPrayers, setFetchedHealthPrayers] = useState([]);
   const [fetchedWealthPrayers, setFetchedWealthPrayers] = useState([]);
   const [fetchedWarfarePrayers, setFetchedWarfarePrayers] = useState([]);
@@ -76,6 +77,8 @@ export const PrayerAppProvider = ({ children }) => {
         fetchedWarfarePrayers,
         fetchedPraisePrayers,
         fetchedProtectionPrayers,
+        globalName,
+        setGlobalName
       }}
     >
       {children}

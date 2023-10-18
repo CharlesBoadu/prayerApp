@@ -15,6 +15,7 @@ export const PrayersScreen = ({ setShowPrayers, categoryName }) => {
     fetchedWarfarePrayers,
     fetchedPraisePrayers,
     fetchedProtectionPrayers,
+    setGlobalName,
   } = usePrayerAppContext();
   const [data, setData] = useState();
 
@@ -36,7 +37,7 @@ export const PrayersScreen = ({ setShowPrayers, categoryName }) => {
 
   return (
     <SafeAreaView>
-      <TouchableWithoutFeedback onPress={() => setShowPrayers(false)}>
+      <TouchableWithoutFeedback onPress={() => {setShowPrayers(false), setGlobalName("All")}}>
         <Text style={tw`pl-2 text-lg`}>Back</Text>
       </TouchableWithoutFeedback>
       <View>

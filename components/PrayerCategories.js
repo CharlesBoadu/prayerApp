@@ -11,6 +11,7 @@ import tw from "tailwind-react-native-classnames";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { PrayersScreen } from "../screens/PrayersScreen";
+import { usePrayerAppContext } from "../Store/context";
 
 export const PrayerCategories = () => {
   const [showPrayers, setShowPrayers] = useState(false);
@@ -52,12 +53,14 @@ export const PrayerCategories = () => {
     },
   ];
   const [categoryName, setCategoryName] = useState("");
+  const { setGlobalName } = usePrayerAppContext();
 
   const navigation = useNavigation();
 
   const handlePress = (name) => {
     setShowPrayers(true);
     setCategoryName(name);
+    setGlobalName(name);
   };
 
   return (
