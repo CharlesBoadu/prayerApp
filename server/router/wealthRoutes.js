@@ -3,7 +3,11 @@ const wealthPrayers = require("../db/prayersAboutWealth");
 const wealthRouter = express.Router();
 
 wealthRouter.get("/all", (req, res) => {
-  res.json(wealthPrayers);
+  res.json({
+    code: "PAW00",
+    message: "Success",
+    data: wealthPrayers,
+  });
 });
 
 wealthRouter.get("/:id", (req, res) => {

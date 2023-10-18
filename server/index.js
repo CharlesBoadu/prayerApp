@@ -6,6 +6,8 @@ const praiseRoutes = require("./router/praiseRoutes");
 const protectionRoutes = require("./router/protectionRoutes");
 const cors = require("cors");
 
+const port = 6000;
+
 const app = express();
 
 app.use(express.json());
@@ -23,6 +25,6 @@ app.use("/praise", praiseRoutes);
 app.use("/protection", protectionRoutes);
 
 
-app.listen(6000, () => {
-  console.log("Server is running on port 5000");
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

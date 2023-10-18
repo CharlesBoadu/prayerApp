@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import AllFetchesApi from "./api";
 
 export const PrayerAppContext = createContext({});
@@ -13,36 +13,52 @@ export const PrayerAppProvider = ({ children }) => {
   useEffect(() => {
     const fetchHealthPrayers = async () => {
       try {
-        const response = await AllFetchesApi.fetchAllHealthPrayers();
+        const response = await fetch("http://172.20.10.13:6000/health/all");
         const data = await response.json();
-        setFetchedHealthPrayers(data);
+        setFetchedHealthPrayers(data?.data);
       } catch (error) {
         console.error("Error fetching health prayers:", error);
       }
     };
 
     const fetchWealthPrayers = async () => {
-      const response = await AllFetchesApi.fetchAllWealthPrayers();
-      const data = await response.json();
-      setFetchedWealthPrayers(data);
+      try {
+        const response = await fetch("http://172.20.10.13:6000/wealth/all");
+        const data = await response.json();
+        setFetchedWealthPrayers(data?.data);
+      } catch (error) {
+        console.error("Error fetching wealth prayers:", error);
+      }
     };
 
     const fetchWarfarePrayers = async () => {
-      const response = await AllFetchesApi.fetchAllWarfarePrayers();
-      const data = await response.json();
-      setFetchedWarfarePrayers(data);
+      try {
+        const response = await fetch("http://172.20.10.13:6000/warfare/all");
+        const data = await response.json();
+        setFetchedWarfarePrayers(data?.data);
+      } catch (error) {
+        console.error("Error fetching warfare prayers:", error);
+      }
     };
 
     const fetchProtectionPrayers = async () => {
-      const response = await AllFetchesApi.fetchAllProtectionPrayers();
-      const data = await response.json();
-      setFetchedProtectionPrayers(data);
+      try {
+        const response = await fetch("http://172.20.10.13:6000/protection/all");
+        const data = await response.json();
+        setFetchedProtectionPrayers(data?.data);
+      } catch (error) {
+        console.error("Error fetching protection prayers:", error);
+      }
     };
 
     const fetchPraisePrayers = async () => {
-      const response = await AllFetchesApi.fetchAllPraisePrayers();
-      const data = await response.json();
-      setFetchedPraisePrayers(data);
+      try {
+        const response = await fetch("http://172.20.10.13:6000/praise/all");
+        const data = await response.json();
+        setFetchedPraisePrayers(data?.data);
+      } catch (error) {
+        console.log("Error fetching praise prayers:", error);
+      }
     };
 
     fetchHealthPrayers();

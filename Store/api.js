@@ -4,7 +4,6 @@ const fetchAllHealthPrayers = async () => {
   try {
     const response = await fetch(`${BASE_URL}/health/all`);
     const data = await response.json();
-    console.log("Heya", data);
     return data;
   } catch (error) {
     console.log(error);

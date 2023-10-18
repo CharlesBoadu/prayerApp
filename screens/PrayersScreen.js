@@ -5,19 +5,10 @@ import {
   View,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
-import { PrayerAppProvider, usePrayerAppContext } from "../Store/context";
-import { useEffect } from "react";
-import AllFetchesApi from "../Store/api";
+import { usePrayerAppContext } from "../Store/context";
+import { useEffect, useState } from "react";
 
-export const PrayerScreenContextContainer = () => {
-  return (
-    <PrayerAppProvider>
-      <PrayersScreen />
-    </PrayerAppProvider>
-  );
-};
-
-export const PrayersScreen = ({ setShowPrayers }) => {
+export const PrayersScreen = ({ setShowPrayers, categoryName }) => {
   const {
     fetchedHealthPrayers,
     fetchedWealthPrayers,
@@ -25,8 +16,23 @@ export const PrayersScreen = ({ setShowPrayers }) => {
     fetchedPraisePrayers,
     fetchedProtectionPrayers,
   } = usePrayerAppContext();
+  const [data, setData] = useState();
 
-  console.log("Howdy", fetchedHealthPrayers);
+  useEffect(() => {
+    if (categoryName === "Prayers About Health") {
+      setData(fetchedHealthPrayers);
+    } else if (categoryName === "Warfare") {
+      setData(fetchedWarfarePrayers);
+    } else if (categoryName === "Prayers for Protection") {
+      setData(fetchedProtectionPrayers);
+    } else if (categoryName === "Prayers for Praise") {
+      setData(fetchedPraisePrayers);
+    } else if (categoryName === "Prayers About Riches") {
+      setData(fetchedWealthPrayers);
+    } else {
+      setData([]);
+    }
+  }, []);
 
   return (
     <SafeAreaView>
@@ -35,27 +41,30 @@ export const PrayersScreen = ({ setShowPrayers }) => {
       </TouchableWithoutFeedback>
       <View>
         <Text style={tw`text-center mb-2 text-xl font-bold uppercase`}>
-          {"title"}
+          {categoryName}
         </Text>
       </View>
-      <View
-        style={[
-          {
-            borderBottom: "2px",
-            borderBottomWidth: 2,
-            borderTopWidth: 2,
-            borderColor: "black",
-          },
-          tw`flex flex-row pl-2 py-4`,
-        ]}
-      >
-        <View style={tw`mr-2`}>
-          <Text>{"id"}</Text>
+      {data?.map((prayer) => (
+        <View
+          style={[
+            {
+              borderBottom: "2px",
+              borderBottomWidth: 1,
+              borderTopWidth: 1,
+              borderColor: "black",
+            },
+            tw`flex flex-row p-4`,
+          ]}
+          key={prayer.id}
+        >
+          <View style={tw`mr-2`}>
+            <Text>{prayer.id}</Text>
+          </View>
+          <View>
+            <Text>{prayer.content}</Text>
+          </View>
         </View>
-        <View>
-          <Text>{"content"}</Text>
-        </View>
-      </View>
+      ))}
     </SafeAreaView>
   );
 };

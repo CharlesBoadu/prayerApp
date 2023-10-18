@@ -51,18 +51,20 @@ export const PrayerCategories = () => {
       color: "black",
     },
   ];
+  const [categoryName, setCategoryName] = useState("");
 
   const navigation = useNavigation();
 
-  const handlePress = () => {
+  const handlePress = (name) => {
     setShowPrayers(true);
+    setCategoryName(name);
   };
 
   return (
     <>
       {showPrayers ? (
         <>
-        <PrayersScreen setShowPrayers={setShowPrayers}/>
+        <PrayersScreen setShowPrayers={setShowPrayers} categoryName={categoryName}/>
         </>
       ) : (
         <>

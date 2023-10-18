@@ -1,23 +1,41 @@
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { HomeScreen } from "./screens/HomeScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NotificationsScreen } from "./screens/NotificationsScreen";
 import { NavigationContainer } from "@react-navigation/native";
-
+import { PrayerAppProvider, usePrayerAppContext } from "./Store/context";
 
 const Tab = createBottomTabNavigator();
 
 const CustomTabBarButton = ({ children, onPress }) => (
-  <TouchableWithoutFeedback onPress={onPress} style={{ flex: 1}}>
-    <View style={{ alignItems: 'center', justifyContent: 'center', paddingBottom: 10 }}>
+  <TouchableWithoutFeedback onPress={onPress} style={{ flex: 1 }}>
+    <View
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        paddingBottom: 10,
+      }}
+    >
       {children}
-      <View style={{ height: 3, width: '100%', backgroundColor: '#2290e5', marginTop: 3 }} />
+      <View
+        style={{
+          height: 3,
+          width: "100%",
+          backgroundColor: "#2290e5",
+          marginTop: 3,
+        }}
+      />
     </View>
   </TouchableWithoutFeedback>
 );
-
 
 export const AppNavigator = () => {
   return (
@@ -26,7 +44,7 @@ export const AppNavigator = () => {
         activeTintColor: "#fffd54",
         inactiveTintColor: "#fffd54",
         headerShown: false,
-        tabBarStyle: { backgroundColor: '#061551' },
+        tabBarStyle: { backgroundColor: "#061551" },
         tabBarLabel: () => null,
         // tabBarButton: (props) => <CustomTabBarButton {...props} />,
       }}
@@ -45,7 +63,11 @@ export const AppNavigator = () => {
         component={NotificationsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="notifications-outline" color={`#fffd54`} size={size} />
+            <Ionicons
+              name="notifications-outline"
+              color={`#fffd54`}
+              size={size}
+            />
           ),
         }}
       />
@@ -56,9 +78,11 @@ export const AppNavigator = () => {
 export default function App() {
   return (
     <>
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
+      <PrayerAppProvider>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </PrayerAppProvider>
     </>
   );
 }
