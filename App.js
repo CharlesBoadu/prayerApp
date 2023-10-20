@@ -13,6 +13,7 @@ import { NotificationsScreen } from "./screens/NotificationsScreen";
 import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { PrayerAppProvider, usePrayerAppContext } from "./Store/context";
+import tw from "tailwind-react-native-classnames";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +40,8 @@ const CustomTabBarButton = ({ children, onPress }) => (
 );
 
 export const AppNavigator = () => {
+  const { favoritesCount } = usePrayerAppContext();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -64,11 +67,18 @@ export const AppNavigator = () => {
         component={FavoritesScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons
-              name="bookmarks-outline"
-              color={`#fffd54`}
-              size={size}
-            />
+            <View style={tw`flex flex-row`}>
+              <Ionicons
+                name="bookmarks-outline"
+                color={`#fffd54`}
+                size={size}
+              />
+              {favoritesCount === 0 ? null : (
+                <View style={[{backgroundColor: "#fffd54", marginLeft: "-5%"}, tw`px-3 rounded-full opacity-90`]}>
+                  <Text style={{color: "#061551", fontWeight: "bold",}}>{favoritesCount}</Text>
+                </View>
+              )}
+            </View>
           ),
         }}
       />
