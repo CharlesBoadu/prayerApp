@@ -20,9 +20,9 @@ export const FavoritesScreen = () => {
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
       <TopNav name={"Favorite Prayers"} />
-      <Text style={tw`text-black text-2xl font-bold text-center`}>
+      {/* <Text style={tw`text-black text-2xl font-bold text-center`}>
         Favorites Prayers
-      </Text>
+      </Text> */}
       <ScrollView
       >
         {favoritePrayers?.map((prayer, index) => (
