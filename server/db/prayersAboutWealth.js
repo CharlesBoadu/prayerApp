@@ -5,6 +5,7 @@ let prayersAboutWealth = [
     content:
       "Lord, you are the same yesterday, today and forever. In your love and mercy, please come to my help and give me the grace to place my trust in you. I ask this in the name of Jesus. Amen.",
     category: "Wealth",
+    scripture: "Matthew 11:28-30",
     date: "2021-01-01",
     time: "12:00:00",
     archived: false,
@@ -19,6 +20,7 @@ let prayersAboutWealth = [
     content:
       "Lord, you are the same yesterday, today and forever. In your love and mercy, please come to my help and give me the grace to place my trust in you. I ask this in the name of Jesus. Amen.",
     category: "Wealth",
+    scripture: "Matthew 11:28-30",
     date: "2021-01-01",
     time: "12:00:00",
     archived: false,
@@ -33,6 +35,7 @@ let prayersAboutWealth = [
     content:
       "Lord, you are the same yesterday, today and forever. In your love and mercy, please come to my help and give me the grace to place my trust in you. I ask this in the name of Jesus. Amen.",
     category: "Wealth",
+    scripture: "Matthew 11:28-30",
     date: "2021-01-01",
     time: "12:00:00",
     archived: false,
@@ -47,6 +50,7 @@ let prayersAboutWealth = [
     content:
       "Lord, you are the same yesterday, today and forever. In your love and mercy, please come to my help and give me the grace to place my trust in you. I ask this in the name of Jesus. Amen.",
     category: "Wealth",
+    scripture: "Matthew 11:28-30",
     date: "2021-01-01",
     time: "12:00:00",
     archived: false,
@@ -61,6 +65,7 @@ let prayersAboutWealth = [
     content:
       "Lord, you are the same yesterday, today and forever. In your love and mercy, please come to my help and give me the grace to place my trust in you. I ask this in the name of Jesus. Amen.",
     category: "Wealth",
+    scripture: "Matthew 11:28-30",
     date: "2021-01-01",
     time: "12:00:00",
     archived: false,

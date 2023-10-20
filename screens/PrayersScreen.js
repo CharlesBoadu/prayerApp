@@ -7,6 +7,8 @@ import {
 import tw from "tailwind-react-native-classnames";
 import { usePrayerAppContext } from "../Store/context";
 import { useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native";
+import { SelectedPrayer } from "../components/SelectedPrayer";
 
 export const PrayersScreen = ({ setShowPrayers, categoryName }) => {
   const {
@@ -18,6 +20,8 @@ export const PrayersScreen = ({ setShowPrayers, categoryName }) => {
     setGlobalName,
   } = usePrayerAppContext();
   const [data, setData] = useState();
+  const [isSelected, setIsSelected] = useState(false);
+  const [prayerSelected, setPrayerSelected] = useState({});
 
   useEffect(() => {
     if (categoryName === "Prayers About Health") {
@@ -35,9 +39,15 @@ export const PrayersScreen = ({ setShowPrayers, categoryName }) => {
     }
   }, []);
 
-  return (
+  return isSelected ? (
+    <SelectedPrayer prayerSelected={prayerSelected} setIsSelected={setIsSelected} />
+  ) : (
     <SafeAreaView>
-      <TouchableWithoutFeedback onPress={() => {setShowPrayers(false), setGlobalName("All")}}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          setShowPrayers(false), setGlobalName("All");
+        }}
+      >
         <Text style={tw`pl-2 text-lg`}>Back</Text>
       </TouchableWithoutFeedback>
       <View>
@@ -46,7 +56,7 @@ export const PrayersScreen = ({ setShowPrayers, categoryName }) => {
         </Text>
       </View>
       {data?.map((prayer) => (
-        <View
+        <TouchableOpacity
           style={[
             {
               borderBottom: "2px",
@@ -57,6 +67,10 @@ export const PrayersScreen = ({ setShowPrayers, categoryName }) => {
             tw`flex flex-row p-4`,
           ]}
           key={prayer.id}
+          onPress={() => {
+            setIsSelected(true);
+            setPrayerSelected(prayer);
+          }}
         >
           <View style={tw`mr-2`}>
             <Text>{prayer.id}</Text>
@@ -64,7 +78,7 @@ export const PrayersScreen = ({ setShowPrayers, categoryName }) => {
           <View>
             <Text>{prayer.content}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       ))}
     </SafeAreaView>
   );

@@ -10,6 +10,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { HomeScreen } from "./screens/HomeScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NotificationsScreen } from "./screens/NotificationsScreen";
+import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { PrayerAppProvider, usePrayerAppContext } from "./Store/context";
 
@@ -55,6 +56,19 @@ export const AppNavigator = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="list-outline" color={`#fffd54`} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons
+              name="bookmarks-outline"
+              color={`#fffd54`}
+              size={size}
+            />
           ),
         }}
       />
