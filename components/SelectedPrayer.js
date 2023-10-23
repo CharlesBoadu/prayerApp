@@ -4,7 +4,6 @@ import tw from "tailwind-react-native-classnames";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native";
 import { usePrayerAppContext } from "../Store/context";
-import Toast from 'react-native-toast-message';
 
 export const SelectedPrayer = ({ prayerSelected, setIsSelected }) => {
   const { favoritesCount, setFavoritesCount, setFavoritePrayers } = usePrayerAppContext();

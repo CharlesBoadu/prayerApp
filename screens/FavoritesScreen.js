@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, Text, ToastAndroid, View } from "react-native";
 import { TopNav } from "../components/TopNav";
 import { StatusBar } from "expo-status-bar";
 import tw from "tailwind-react-native-classnames";
@@ -32,6 +32,16 @@ export const FavoritesScreen = () => {
     setFavoritesCount(favoritesCount - 1);
   };
 
+  const showToastWithGravityAndOffset = () => {
+    ToastAndroid.showWithGravityAndOffset(
+      'Prayer Removed from Favorites',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       setGlobalName("Favorite Prayers");
@@ -57,7 +67,10 @@ export const FavoritesScreen = () => {
             </>
           )}
           <TouchableOpacity
-            onPress={closeModal}
+            onPress={() => {
+              closeModal()
+              showToastWithGravityAndOffset()
+            }}
             style={[
               { backgroundColor: "#061551" },
               tw`mt-10 flex flex-row mx-auto rounded-full px-4 py-2`,
