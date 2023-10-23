@@ -13,6 +13,7 @@ import { NotificationsScreen } from "./screens/NotificationsScreen";
 import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { PrayerAppProvider, usePrayerAppContext } from "./Store/context";
+import Toast from "react-native-toast-message";
 import tw from "tailwind-react-native-classnames";
 
 const Tab = createBottomTabNavigator();
@@ -74,8 +75,15 @@ export const AppNavigator = () => {
                 size={size}
               />
               {favoritesCount === 0 ? null : (
-                <View style={[{backgroundColor: "#fffd54", marginLeft: "-5%"}, tw`px-3 rounded-full opacity-90`]}>
-                  <Text style={{color: "#061551", fontWeight: "bold",}}>{favoritesCount}</Text>
+                <View
+                  style={[
+                    { backgroundColor: "#fffd54", marginLeft: "-5%" },
+                    tw`px-3 rounded-full opacity-90`,
+                  ]}
+                >
+                  <Text style={{ color: "#061551", fontWeight: "bold" }}>
+                    {favoritesCount}
+                  </Text>
                 </View>
               )}
             </View>
@@ -102,6 +110,7 @@ export const AppNavigator = () => {
 export default function App() {
   return (
     <>
+      <Toast />
       <PrayerAppProvider>
         <NavigationContainer>
           <AppNavigator />

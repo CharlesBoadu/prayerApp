@@ -88,9 +88,9 @@ export const FavoritesScreen = () => {
               setSelectedPrayer(prayer);
               setIsModalVisible(true);
             }}
+            key={index}
           >
             <View
-              key={index}
               style={[
                 {
                   borderBottom: "2px",

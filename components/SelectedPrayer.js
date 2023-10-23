@@ -1,13 +1,36 @@
-import { TouchableWithoutFeedback } from "react-native";
+import { ToastAndroid, TouchableWithoutFeedback } from "react-native";
 import { View, Text, ScrollView } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native";
 import { usePrayerAppContext } from "../Store/context";
+import Toast from 'react-native-toast-message';
 
 export const SelectedPrayer = ({ prayerSelected, setIsSelected }) => {
   const { favoritesCount, setFavoritesCount, setFavoritePrayers } = usePrayerAppContext();
 
+  const showToast = () => {
+    ToastAndroid.show('Prayed added to Favorites', ToastAndroid.SHORT);
+  };
+
+  const showToastWithGravity = () => {
+    ToastAndroid.showWithGravity(
+      'Prayer Added to Favorites',
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP,
+    );
+  };
+
+  const showToastWithGravityAndOffset = () => {
+    ToastAndroid.showWithGravityAndOffset(
+      'Prayer Added to Favorites',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
+  };
+  
   return (
     <ScrollView>
       <TouchableWithoutFeedback onPress={() => setIsSelected(false)}>
@@ -29,6 +52,7 @@ export const SelectedPrayer = ({ prayerSelected, setIsSelected }) => {
           setFavoritesCount(favoritesCount + 1);
           setIsSelected(false);
           setFavoritePrayers((prev) => [...prev, prayerSelected]);
+          showToastWithGravityAndOffset()
         }}
       >
         <View style={tw`mr-3`}>
