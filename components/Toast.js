@@ -3,8 +3,7 @@ import { Platform, ToastAndroid, View, Text, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import tw from "tailwind-react-native-classnames";
 
-
-const ShowToastWithGravityAndOffset = ({message}) => {
+const ShowToastWithGravityAndOffset = ({ type, message }) => {
   if (Platform.OS === "android") {
     ToastAndroid.showWithGravityAndOffset(
       "Prayer Removed from Favorites",
@@ -33,16 +32,23 @@ const ShowToastWithGravityAndOffset = ({message}) => {
       text: {
         color: "#fff",
         paddingLeft: 5,
-        paddingTop: 2
+        paddingTop: 2,
       },
     });
 
     return (
       <View style={toastStyles.container}>
         <View style={tw`flex flex-row`}>
-        <Ionicons name="checkmark-circle-outline" color={`#fffd54`} size={20} />
-        <Text style={toastStyles.text}>{message}</Text>
-
+          {type === "success" ? (
+            <Ionicons
+              name="checkmark-circle-outline"
+              color={`#32c41b`}
+              size={20}
+            />
+          ) : (
+            <Ionicons name="close-circle-outline" color={`#f21f3b`} size={20} />
+          )}
+          <Text style={toastStyles.text}>{message}</Text>
         </View>
       </View>
     );

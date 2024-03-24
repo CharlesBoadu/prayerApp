@@ -16,6 +16,7 @@ import ShowToastWithGravityAndOffset from "../components/Toast";
 
 export const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
+  const [type, setType] = useState("")
   const [showToast, setShowToast] = useState(false);
   const navigation = useNavigation();
   const [message, setMessage] = useState("");
@@ -48,12 +49,18 @@ export const LoginScreen = () => {
         // showToast();
         setShowToast(true);
         setMessage("Login Successful");
+        setType("success")
         setTimeout(() => {
           setShowToast(false);
           navigation.navigate("Home");
         }, 2000);
       } else {
-        console.log(data);
+        setShowToast(true);
+        setType("error")
+        setMessage(data.message);
+        setTimeout(() => {
+          setShowToast(false);
+        }, 2000);
       }
     } catch (error) {
       console.log(error);
@@ -66,7 +73,7 @@ export const LoginScreen = () => {
     <SafeAreaView style={tw`bg-white h-full flex items-center justify-center`}>
       {showToast && (
         // <View style={tw``}>
-        <ShowToastWithGravityAndOffset message={message} />
+        <ShowToastWithGravityAndOffset message={message} type={type}/>
         // </View>
       )}
       <Image
