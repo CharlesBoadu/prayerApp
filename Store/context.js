@@ -65,11 +65,11 @@ export const PrayerAppProvider = ({ children }) => {
       }
     };
 
-    fetchHealthPrayers();
-    fetchWealthPrayers();
-    fetchWarfarePrayers();
-    fetchProtectionPrayers();
-    fetchPraisePrayers();
+    // fetchHealthPrayers();
+    // fetchWealthPrayers();
+    // fetchWarfarePrayers();
+    // fetchProtectionPrayers();
+    // fetchPraisePrayers();
   }, []);
 
   return (

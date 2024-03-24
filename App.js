@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import React from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,15 +9,19 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { HomeScreen } from "./screens/HomeScreen";
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NotificationsScreen } from "./screens/NotificationsScreen";
 import { FavoritesScreen } from "./screens/FavoritesScreen";
+import { AuthScreen } from "./screens/AuthScreen";
+import { LoginScreen } from "./screens/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { PrayerAppProvider, usePrayerAppContext } from "./Store/context";
 import Toast from "react-native-toast-message";
 import tw from "tailwind-react-native-classnames";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableWithoutFeedback onPress={onPress} style={{ flex: 1 }}>
@@ -108,14 +113,28 @@ export const AppNavigator = () => {
 };
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
   return (
     <>
-      <Toast />
-      <PrayerAppProvider>
+      {isAuthenticated ? (
+        <>
+          <Toast />
+          <PrayerAppProvider>
+            <NavigationContainer>
+              <AppNavigator />
+            </NavigationContainer>
+          </PrayerAppProvider>
+        </>
+      ) : (
         <NavigationContainer>
-          <AppNavigator />
+          <Stack.Navigator initialRouteName="Auth">
+          <Stack.Screen name="Auth" component={AuthScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+          </Stack.Navigator>
+          
         </NavigationContainer>
-      </PrayerAppProvider>
+      )}
     </>
   );
 }
