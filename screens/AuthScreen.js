@@ -15,6 +15,10 @@ export const AuthScreen = () => {
   const handleNavigationToLogin = () => {
     navigation.navigate("Login");
   };
+
+  const handleNavigationToSignUp = () => {
+    navigation.navigate("SignUp");
+  };
   return (
     <SafeAreaView style={tw`bg-white h-full flex items-center justify-center`}>
       <Image
@@ -36,6 +40,7 @@ export const AuthScreen = () => {
             <Text style={tw`text-lg font-bold text-white`}>Login</Text>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigationToSignUp()}>
         <View
           style={[
             tw`rounded-full py-4 px-20 flex items-center`,
@@ -45,6 +50,7 @@ export const AuthScreen = () => {
         >
           <Text style={tw`text-lg font-bold text-blue-500`}>Sign Up</Text>
         </View>
+        </TouchableOpacity>
       </View>
       <View>
         <Text style={tw`text-center mt-5`}>

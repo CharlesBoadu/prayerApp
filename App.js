@@ -9,12 +9,13 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { HomeScreen } from "./screens/HomeScreen";
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NotificationsScreen } from "./screens/NotificationsScreen";
 import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { AuthScreen } from "./screens/AuthScreen";
 import { LoginScreen } from "./screens/LoginScreen";
+import { SignUpScreen } from "./screens/SignUpScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { PrayerAppProvider, usePrayerAppContext } from "./Store/context";
 import Toast from "react-native-toast-message";
@@ -113,28 +114,21 @@ export const AppNavigator = () => {
 };
 
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-
   return (
-    <>
-      {isAuthenticated ? (
-        <>
-          <Toast />
-          <PrayerAppProvider>
-            <NavigationContainer>
-              <AppNavigator />
-            </NavigationContainer>
-          </PrayerAppProvider>
-        </>
-      ) : (
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Auth">
-          <Stack.Screen name="Auth" component={AuthScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-          </Stack.Navigator>
-          
-        </NavigationContainer>
-      )}
-    </>
+    <PrayerAppProvider>
+      <Toast />
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Auth">
+          <Stack.Screen
+            name="Auth"
+            component={AuthScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PrayerAppProvider>
   );
 }

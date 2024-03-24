@@ -5,6 +5,7 @@ export const PrayerAppContext = createContext({});
 
 export const PrayerAppProvider = ({ children }) => {
   const [globalName, setGlobalName] = useState("All");
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [showPrayers, setShowPrayers] = useState(false);
   const [favoritesCount, setFavoritesCount] = useState(0);
   const [favoritePrayers, setFavoritePrayers] = useState([]);
@@ -80,6 +81,8 @@ export const PrayerAppProvider = ({ children }) => {
         fetchedWarfarePrayers,
         fetchedPraisePrayers,
         fetchedProtectionPrayers,
+        isAuthenticated,
+        setIsAuthenticated,
         globalName,
         setGlobalName,
         showPrayers,

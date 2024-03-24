@@ -55,5 +55,5 @@ export default {
   fetchAllWealthPrayers,
   fetchAllWarfarePrayers,
   fetchAllPraisePrayers,
-  fetchAllProtectionPrayers,
+  fetchAllProtectionPrayers
 };
