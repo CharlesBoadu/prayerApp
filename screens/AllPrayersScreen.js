@@ -1,6 +1,12 @@
 import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import MoneyIcon from 'react-native-vector-icons/Fontisto';
+import HealthIcon from 'react-native-vector-icons/FontAwesome';
+import PrayerIcon from 'react-native-vector-icons/FontAwesome5';
+import WarfareIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import PraiseIcon from 'react-native-vector-icons/FontAwesome5';
+import ProtectionIcon from 'react-native-vector-icons/FontAwesome5';
 
 export const AllPrayersScreen = () => {
   return (
@@ -12,7 +18,9 @@ export const AllPrayersScreen = () => {
           </Text>
         </View>
         <View>
-          <View style={[tw`w-20 h-20 rounded-lg`, styles.box]}></View>
+          <View style={[tw`w-20 h-20 rounded-lg flex items-center justify-center`, styles.box]}>
+            <PrayerIcon name="praying-hands" color={`#061551`} size={40} />
+          </View>
         </View>
       </View>
       <View style={tw`m-8`}>
@@ -24,7 +32,7 @@ export const AllPrayersScreen = () => {
             ]}
           >
             <View>
-              <Ionicons name="medkit-outline" color={`white`} size={50} />
+            <HealthIcon name="heartbeat" color={`white`} size={50} />
             </View>
             <View style={tw`border-b border-white mt-3`}>
               <Text style={[tw`text-lg text-white`]}>Health</Text>
@@ -37,7 +45,7 @@ export const AllPrayersScreen = () => {
             ]}
           >
             <View>
-              <Ionicons name="medkit-outline" color={`white`} size={50} />
+                <MoneyIcon name="money-symbol" color={`white`} size={50} />
             </View>
             <View style={tw`border-b border-white mt-3`}>
               <Text style={[tw`text-lg text-white`]}>Wealth</Text>
@@ -45,12 +53,47 @@ export const AllPrayersScreen = () => {
           </View>
         </View>
         <View style={[tw`mb-8`, styles.prayerCategories]}>
-          <View style={tw`w-40 h-40 rounded-lg bg-white`}></View>
-          <View style={tw`w-40 h-40 rounded-lg bg-white`}></View>
+        <View
+            style={[
+              tw`w-40 h-40 rounded-lg flex items-center justify-center`,
+              styles.categoryContainer,
+            ]}
+          >
+            <View>
+                <WarfareIcon name="sword-cross" color={`white`} size={50} />
+            </View>
+            <View style={tw`border-b border-white mt-3`}>
+              <Text style={[tw`text-lg text-white`]}>Warfare</Text>
+            </View>
+          </View>
+        <View
+            style={[
+              tw`w-40 h-40 rounded-lg flex items-center justify-center`,
+              styles.categoryContainer,
+            ]}
+          >
+            <View>
+                <PraiseIcon name="pray" color={`white`} size={50} />
+            </View>
+            <View style={tw`border-b border-white mt-3`}>
+              <Text style={[tw`text-lg text-white`]}>Praise</Text>
+            </View>
+          </View>
         </View>
         <View style={[tw``, styles.prayerCategories]}>
-          <View style={tw`w-40 h-40 rounded-lg bg-white`}></View>
-          <View style={tw`w-40 h-40 rounded-lg bg-white`}></View>
+        <View
+            style={[
+              tw`w-40 h-40 rounded-lg flex items-center justify-center`,
+              styles.categoryContainer,
+            ]}
+          >
+            <View>
+                <ProtectionIcon name="user-shield" color={`white`} size={50} />
+            </View>
+            <View style={tw`border-b border-white mt-3`}>
+              <Text style={[tw`text-lg text-white`]}>Protection</Text>
+            </View>
+          </View>          
         </View>
       </View>
     </SafeAreaView>
