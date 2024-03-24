@@ -118,7 +118,7 @@ export default function App() {
     <PrayerAppProvider>
       <Toast />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Auth">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Auth"
             component={AuthScreen}
@@ -126,7 +126,9 @@ export default function App() {
           />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} 
+          options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PrayerAppProvider>

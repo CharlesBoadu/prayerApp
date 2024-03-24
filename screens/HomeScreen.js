@@ -7,6 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import React from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { AllPrayersScreen } from "./AllPrayersScreen";
 import { NotificationsScreen } from "../screens/NotificationsScreen";
 import { FavoritesScreen } from "../screens/FavoritesScreen";
 
@@ -18,20 +19,20 @@ export const AppNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        activeTintColor: "#fffd54",
-        inactiveTintColor: "#fffd54",
+        activeTintColor: "#061551",
+        inactiveTintColor: "#061551",
         headerShown: false,
-        tabBarStyle: { backgroundColor: "#061551" },
+        tabBarStyle: { backgroundColor: "white" },
         tabBarLabel: () => null,
         // tabBarButton: (props) => <CustomTabBarButton {...props} />,
       }}
     >
       <Tab.Screen
         name="All"
-        component={FavoritesScreen}
+        component={AllPrayersScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="list-outline" color={`#fffd54`} size={size} />
+            <Ionicons name="list-outline" color={`#061551`} size={size} />
           ),
         }}
       />
@@ -43,7 +44,7 @@ export const AppNavigator = () => {
             <View style={tw`flex flex-row`}>
               <Ionicons
                 name="bookmarks-outline"
-                color={`#fffd54`}
+                color={`#061551`}
                 size={size}
               />
               {favoritesCount === 0 ? null : (
@@ -69,7 +70,7 @@ export const AppNavigator = () => {
           tabBarIcon: ({ color, size }) => (
             <Ionicons
               name="notifications-outline"
-              color={`#fffd54`}
+              color={`#061551`}
               size={size}
             />
           ),
