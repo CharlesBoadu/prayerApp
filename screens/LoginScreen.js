@@ -16,7 +16,7 @@ import ShowToastWithGravityAndOffset from "../components/Toast";
 
 export const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
-  const [type, setType] = useState("")
+  const [type, setType] = useState("");
   const [showToast, setShowToast] = useState(false);
   const navigation = useNavigation();
   const [message, setMessage] = useState("");
@@ -50,14 +50,14 @@ export const LoginScreen = () => {
         // showToast();
         setShowToast(true);
         setMessage("Login Successful");
-        setType("success")
+        setType("success");
         setTimeout(() => {
           setShowToast(false);
           navigation.navigate("Home");
         }, 2000);
       } else {
         setShowToast(true);
-        setType("error")
+        setType("error");
         setMessage(data.message);
         setTimeout(() => {
           setShowToast(false);
@@ -73,9 +73,11 @@ export const LoginScreen = () => {
   return (
     <SafeAreaView style={tw`bg-white h-full flex items-center justify-center`}>
       {showToast && (
-        // <View style={tw``}>
-        <ShowToastWithGravityAndOffset message={message} type={type} position={toastPosition} />
-        // </View>
+        <ShowToastWithGravityAndOffset
+          message={message}
+          type={type}
+          position={toastPosition}
+        />
       )}
       <Image
         source={require("../assets/auth.jpg")}
@@ -87,40 +89,38 @@ export const LoginScreen = () => {
       </Text>
 
       <View>
-        <View>
-          <TextInput
-            style={tw`border-b border-blue-500 w-80 py-4 mb-5`}
-            placeholder="Enter your email"
-            onChangeText={(newText) =>
-              setValues({
-                ...values,
-                email: newText.toLowerCase(),
-              })
-            }
-            defaultValue={values.email}
-          />
-          <TextInput
-            style={tw`border-b border-blue-500 w-80 py-4`}
-            placeholder="Enter password"
-            onChangeText={(newText) =>
-              setValues({
-                ...values,
-                password: newText.toLowerCase(),
-              })
-            }
-            defaultValue={values.password}
-          />
-          <TouchableOpacity onPress={() => handleLogin()}>
-            <View
-              style={[
-                tw`rounded-full bg-blue-500 py-4 px-20 flex items-center mt-10`,
-                styles.button,
-              ]}
-            >
-              <Text style={tw`text-lg font-bold text-white`}>Login</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+        <TextInput
+          style={tw`border-b border-blue-500 w-80 py-4 mb-5`}
+          placeholder="Enter your email"
+          onChangeText={(newText) =>
+            setValues({
+              ...values,
+              email: newText.toLowerCase(),
+            })
+          }
+          defaultValue={values.email}
+        />
+        <TextInput
+          style={tw`border-b border-blue-500 w-80 py-4`}
+          placeholder="Enter password"
+          onChangeText={(newText) =>
+            setValues({
+              ...values,
+              password: newText.toLowerCase(),
+            })
+          }
+          defaultValue={values.password}
+        />
+        <TouchableOpacity onPress={() => handleLogin()}>
+          <View
+            style={[
+              tw`rounded-full bg-blue-500 py-4 px-20 flex items-center mt-10`,
+              styles.button,
+            ]}
+          >
+            <Text style={tw`text-lg font-bold text-white`}>Login</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

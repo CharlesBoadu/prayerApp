@@ -118,7 +118,7 @@ export default function App() {
     <PrayerAppProvider>
       <Toast />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="SignUp">
           <Stack.Screen
             name="Auth"
             component={AuthScreen}
