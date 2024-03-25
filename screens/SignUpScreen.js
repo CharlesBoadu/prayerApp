@@ -11,8 +11,11 @@ import {
 import tw from "tailwind-react-native-classnames";
 import ShowToastWithGravityAndOffset from "../components/Toast";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+
 
 export const SignUpScreen = () => {
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState("");
@@ -31,7 +34,7 @@ export const SignUpScreen = () => {
   const handleSignUp = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://127.0.0.1:5000/api/v1/login`, {
+      const response = await fetch(`http://127.0.0.1:5000/api/v1/register`, {
         method: "POST", // Change the method as needed
         headers: {
           "Content-Type": "application/json",
@@ -42,11 +45,11 @@ export const SignUpScreen = () => {
       if (data.statusCode === "PA00") {
         // showToast();
         setShowToast(true);
-        setMessage("Login Successful");
+        setMessage("Sign Up Successful");
         setType("success");
         setTimeout(() => {
           setShowToast(false);
-          navigation.navigate("Home");
+          navigation.navigate("Login");
         }, 2000);
       } else {
         setShowToast(true);
