@@ -53,9 +53,9 @@ export const AppNavigator = () => {
     <Tab.Navigator
       screenOptions={{
         activeTintColor: "#fffd54",
-        inactiveTintColor: "#fffd54",
+        inactiveTintColor: "#a9a9a9",
         headerShown: false,
-        tabBarStyle: { backgroundColor: "#061551" },
+        // tabBarStyle: { backgroundColor: '#', width: '80%', alignSelf: 'center', borderRadius: 15, borderTopLeftRadius: 0, borderTopRightRadius: 0 }, // Style for the tab bar
         tabBarLabel: () => null,
         // tabBarButton: (props) => <CustomTabBarButton {...props} />,
       }}

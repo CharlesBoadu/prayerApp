@@ -24,6 +24,7 @@ export const LoginScreen = () => {
     email: "",
     password: "",
   });
+  let toastPosition = 10;
 
   //   const showToast = () => {
   //     Toast.show({
@@ -73,7 +74,7 @@ export const LoginScreen = () => {
     <SafeAreaView style={tw`bg-white h-full flex items-center justify-center`}>
       {showToast && (
         // <View style={tw``}>
-        <ShowToastWithGravityAndOffset message={message} type={type}/>
+        <ShowToastWithGravityAndOffset message={message} type={type} position={toastPosition} />
         // </View>
       )}
       <Image

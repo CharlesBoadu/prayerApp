@@ -3,7 +3,7 @@ import { Platform, ToastAndroid, View, Text, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import tw from "tailwind-react-native-classnames";
 
-const ShowToastWithGravityAndOffset = ({ type, message }) => {
+const ShowToastWithGravityAndOffset = ({ type, message, position }) => {
   if (Platform.OS === "android") {
     ToastAndroid.showWithGravityAndOffset(
       "Prayer Removed from Favorites",
@@ -25,7 +25,7 @@ const ShowToastWithGravityAndOffset = ({ type, message }) => {
         paddingTop: 10,
         paddingBottom: 10,
         borderRadius: 5,
-        top: 5, // Adjust top position to move the toast to the top
+        top: position, // Adjust top position to move the toast to the top
         alignSelf: "center", // Align the toast horizontally to the center
         zIndex: 999,
       },
