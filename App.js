@@ -16,6 +16,8 @@ import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { AuthScreen } from "./screens/AuthScreen";
 import { LoginScreen } from "./screens/LoginScreen";
 import { SignUpScreen } from "./screens/SignUpScreen";
+import { ResetScreen } from "./screens/ResetScreen";
+import { NewPasswordScreen } from "./screens/NewPasswordScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { PrayerAppProvider, usePrayerAppContext } from "./Store/context";
 import Toast from "react-native-toast-message";
@@ -118,7 +120,7 @@ export default function App() {
     <PrayerAppProvider>
       <Toast />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="SignUp">
+        <Stack.Navigator initialRouteName="NewPassword">
           <Stack.Screen
             name="Auth"
             component={AuthScreen}
@@ -126,8 +128,16 @@ export default function App() {
           />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} 
-          options={{ headerShown: false }}
+          <Stack.Screen name="Reset" component={ResetScreen} />
+          <Stack.Screen
+            name="NewPassword"
+            component={NewPasswordScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -41,20 +41,23 @@ export const AuthScreen = () => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigationToSignUp()}>
-        <View
-          style={[
-            tw`rounded-full py-4 px-20 flex items-center`,
-            styles.button,
-            styles.signUpButton,
-          ]}
-        >
-          <Text style={tw`text-lg font-bold text-blue-500`}>Sign Up</Text>
-        </View>
+          <View
+            style={[
+              tw`rounded-full py-4 px-20 flex items-center`,
+              styles.button,
+              styles.signUpButton,
+            ]}
+          >
+            <Text style={tw`text-lg font-bold text-blue-500`}>Sign Up</Text>
+          </View>
         </TouchableOpacity>
       </View>
       <View>
         <Text style={tw`text-center mt-5`}>
-          By continuing, you agree to our Terms of Service and Privacy Policy
+          Forgot password? {" "}
+          {/* <TouchableOpacity onPress={() => navigation.navigate("Reset")} style={tw``}> */}
+            <Text style={tw`text-blue-500`} onPress={() => navigation.navigate("Reset")}>Reset</Text>
+          {/* </TouchableOpacity> */}
         </Text>
       </View>
     </SafeAreaView>
