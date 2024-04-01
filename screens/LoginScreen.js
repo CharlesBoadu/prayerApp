@@ -13,6 +13,7 @@ import tw from "tailwind-react-native-classnames";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import ShowToastWithGravityAndOffset from "../components/Toast";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -47,7 +48,7 @@ export const LoginScreen = () => {
       });
       const data = await response.json();
       if (data.statusCode === "PA00") {
-        // showToast();
+        await AsyncStorage.setItem("user", JSON.stringify(data.data));
         setShowToast(true);
         setMessage("Login Successful");
         setType("success");

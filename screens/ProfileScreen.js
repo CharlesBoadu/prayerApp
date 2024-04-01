@@ -9,8 +9,11 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import tw from "tailwind-react-native-classnames";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ShowToastWithGravityAndOffset from "../components/Toast";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import UserIcon from "react-native-vector-icons/SimpleLineIcons";
+import SaveIcon from "react-native-vector-icons/Feather";
 
 export const ProfileScreen = () => {
   const [values, setValues] = useState({
@@ -26,27 +29,82 @@ export const ProfileScreen = () => {
   const navigation = useNavigation();
   let toastPosition = 50;
 
+  useEffect(() => {
+    const getUser = async () => {
+      const user = await AsyncStorage.getItem("user");
+      const data = JSON.parse(user);
+      setValues(data);
+    };
+    getUser();
+  }, []);
+
   const handleLogout = () => {
     setShowToast(true);
-        setMessage("Logout Successful");
-        setType("success")
-        setTimeout(() => {
-          setShowToast(false);
-          navigation.navigate("Auth");
-        }, 2000);
+    setMessage("Logout Successful");
+    setType("success");
+    setTimeout(() => {
+      setShowToast(false);
+      navigation.navigate("Auth");
+    }, 2000);
   };
+
+  const handleUpdateProfile = async () => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:5000/api/v1/profile/update/${values.id}`,
+        {
+          method: "PUT", // Change the method as needed
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+      await AsyncStorage.setItem("user", JSON.stringify(values));
+      setShowToast(true);
+      setMessage("Profile Updated Successfully");
+      setType("success");
+      setTimeout(() => {
+        setShowToast(false);
+      }, 2000);
+    } catch (error) {
+      setShowToast(true);
+      setMessage("Profile Update Failed");
+      setType("error");
+      setTimeout(() => {
+        setShowToast(false);
+      }, 2000);
+    }
+  };
+
   return (
     <SafeAreaView>
-      {showToast && <ShowToastWithGravityAndOffset message={message} type={type} position={toastPosition} />}
+      {showToast && (
+        <ShowToastWithGravityAndOffset
+          message={message}
+          type={type}
+          position={toastPosition}
+        />
+      )}
       <View style={[tw``, styles.header]}>
-        <Text style={tw`text-lg text-center text-white py-4`}>
+        <Text style={tw`text-2xl font-bold text-center text-white py-4`}>
           Your Profile
         </Text>
         <View
-          style={[tw`w-40 h-40 rounded-full mx-auto bg-white`, styles.border]}
-        ></View>
-        <Text style={tw`text-lg text-white text-center py-4`}>
-          Charles Osei Boadu
+          style={[
+            tw`w-40 h-40 rounded-full mx-auto bg-white flex items-center justify-center`,
+            styles.border,
+          ]}
+        >
+          <UserIcon name="user" color={`#061551`} size={80} />
+        </View>
+        <Text
+          style={[
+            tw`text-lg font-semibold text-white text-center py-4`,
+            styles.username,
+          ]}
+        >
+          {values.first_name} {values.last_name}
         </Text>
       </View>
       <View
@@ -110,8 +168,21 @@ export const ProfileScreen = () => {
                 age: newText.toLowerCase(),
               })
             }
-            defaultValue={values.age}
+            defaultValue={values.age.toString()}
           />
+        </View>
+        <View style={[tw`flex flex-row justify-end`]}>
+          <TouchableOpacity onPress={() => handleUpdateProfile()}>
+            <View
+              style={[
+                tw`rounded-lg w-40 mx-auto py-2 my-6 flex flex-row justify-center`,
+                {backgroundColor: "#fffd54"},
+              ]}
+            >
+              <SaveIcon name="save" color={`#061551`} size={22} />
+              <Text style={[tw`text-base pl-2`, {color: '#061551'}]}>Update</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity onPress={() => handleLogout()}>
@@ -136,6 +207,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 80,
     height: "55%",
   },
+  username: { color: "#fffd54" },
   container: {
     backgroundColor: "white",
     shadowColor: "#000",
