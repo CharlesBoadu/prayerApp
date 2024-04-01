@@ -48,79 +48,12 @@ const CustomTabBarButton = ({ children, onPress }) => (
   </TouchableWithoutFeedback>
 );
 
-export const AppNavigator = () => {
-  const { favoritesCount } = usePrayerAppContext();
-
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        activeTintColor: "#fffd54",
-        inactiveTintColor: "#a9a9a9",
-        headerShown: false,
-        // tabBarStyle: { backgroundColor: '#', width: '80%', alignSelf: 'center', borderRadius: 15, borderTopLeftRadius: 0, borderTopRightRadius: 0 }, // Style for the tab bar
-        tabBarLabel: () => null,
-        // tabBarButton: (props) => <CustomTabBarButton {...props} />,
-      }}
-    >
-      <Tab.Screen
-        name="All"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="list-outline" color={`#fffd54`} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Favorites"
-        component={FavoritesScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <View style={tw`flex flex-row`}>
-              <Ionicons
-                name="bookmarks-outline"
-                color={`#fffd54`}
-                size={size}
-              />
-              {favoritesCount === 0 ? null : (
-                <View
-                  style={[
-                    { backgroundColor: "#fffd54", marginLeft: "-5%" },
-                    tw`px-3 rounded-full opacity-90`,
-                  ]}
-                >
-                  <Text style={{ color: "#061551", fontWeight: "bold" }}>
-                    {favoritesCount}
-                  </Text>
-                </View>
-              )}
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Notifications"
-        component={NotificationsScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons
-              name="notifications-outline"
-              color={`#fffd54`}
-              size={size}
-            />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-};
-
 export default function App() {
   return (
     <PrayerAppProvider>
       <Toast />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="NewPassword">
+        <Stack.Navigator initialRouteName="Auth">
           <Stack.Screen
             name="Auth"
             component={AuthScreen}
