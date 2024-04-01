@@ -14,6 +14,7 @@ export const PrayerAppProvider = ({ children }) => {
   const [fetchedWarfarePrayers, setFetchedWarfarePrayers] = useState([]);
   const [fetchedPraisePrayers, setFetchedPraisePrayers] = useState([]);
   const [fetchedProtectionPrayers, setFetchedProtectionPrayers] = useState([]);
+  const [newNotification, setNewNotification] = useState(true);
 
   useEffect(() => {
     const fetchHealthPrayers = async () => {
@@ -90,7 +91,9 @@ export const PrayerAppProvider = ({ children }) => {
         favoritesCount,
         setFavoritesCount,
         favoritePrayers,
-        setFavoritePrayers
+        setFavoritePrayers,
+        newNotification,
+        setNewNotification,
       }}
     >
       {children}

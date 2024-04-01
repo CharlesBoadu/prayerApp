@@ -1,18 +1,8 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import React, { useState, useEffect } from "react";
+import { TouchableWithoutFeedback, View } from "react-native";
 import { HomeScreen } from "./screens/HomeScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NotificationsScreen } from "./screens/NotificationsScreen";
-import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { AuthScreen } from "./screens/AuthScreen";
 import { LoginScreen } from "./screens/LoginScreen";
 import { SignUpScreen } from "./screens/SignUpScreen";
@@ -21,7 +11,7 @@ import { NewPasswordScreen } from "./screens/NewPasswordScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { PrayerAppProvider, usePrayerAppContext } from "./Store/context";
 import Toast from "react-native-toast-message";
-import tw from "tailwind-react-native-classnames";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -49,11 +39,21 @@ const CustomTabBarButton = ({ children, onPress }) => (
 );
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
+      setIsLoggedIn(isLoggedIn);
+    };
+    getUser();
+  }, []);
+
   return (
     <PrayerAppProvider>
       <Toast />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Auth">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Auth"
             component={AuthScreen}

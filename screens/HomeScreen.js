@@ -110,13 +110,6 @@ export const AppNavigator = () => {
 };
 
 export const HomeScreen = () => {
-  const { globalName, setGlobalName, showPrayers } = usePrayerAppContext();
-
-  useFocusEffect(
-    React.useCallback(() => {
-      showPrayers ? setGlobalName(globalName) : setGlobalName("All");
-    }, [])
-  );
 
   return (
     <PrayerAppProvider>

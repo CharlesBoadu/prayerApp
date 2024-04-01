@@ -1,14 +1,16 @@
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { StatusBar } from "expo-status-bar";
 import { TopNav } from "../components/TopNav";
 import { usePrayerAppContext } from "../Store/context";
 import React, { useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-// import { Notifications } from 'react-native-notifications';
+import { Image } from "react-native";
+import NotificationCard from "../components/NotificationCard";
 
 export const NotificationsScreen = () => {
-  const { globalName, setGlobalName, setShowPrayers } = usePrayerAppContext();
+  const { globalName, setGlobalName, setShowPrayers, newNotification } =
+    usePrayerAppContext();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -43,14 +45,36 @@ export const NotificationsScreen = () => {
   //   });
   // };
 
-
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
-      <TopNav name={"Notifications"} />
-      <Text style={tw`text-black text-2xl font-bold`}>
-        Notifications Screen
-      </Text>
-      <StatusBar style="auto" />
+      <View
+        style={[
+          tw`h-20 flex items-center justify-center`,
+          { backgroundColor: "#061551" },
+        ]}
+      >
+        <Text style={tw`text-white text-2xl font-bold`}>Notifications</Text>
+      </View>
+      {newNotification === false && (
+        <View style={tw`flex items-center justify-center h-full`}>
+          <Image
+            source={require("../assets/no-notifications.jpg")}
+            alt="No Notifications Screen Image"
+            style={styles.image}
+          />
+          <Text style={tw`font-bold text-2xl p-8 text-center`}>
+            No new notifications!
+          </Text>
+        </View>
+      )}
+      <ScrollView><NotificationCard title={"Hello World"} message={"Hello Eeveidsndsj"}/></ScrollView>
     </SafeAreaView>
   );
+};
+
+const styles = {
+  image: {
+    width: "100%",
+    height: 300,
+  },
 };

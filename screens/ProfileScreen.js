@@ -42,8 +42,9 @@ export const ProfileScreen = () => {
     setShowToast(true);
     setMessage("Logout Successful");
     setType("success");
-    setTimeout(() => {
+    setTimeout(async() => {
       setShowToast(false);
+      await AsyncStorage.removeItem("isLoggedIn");
       navigation.navigate("Auth");
     }, 2000);
   };
@@ -60,16 +61,17 @@ export const ProfileScreen = () => {
           body: JSON.stringify(values),
         }
       );
+      const data = await response.json();
       await AsyncStorage.setItem("user", JSON.stringify(values));
       setShowToast(true);
-      setMessage("Profile Updated Successfully");
+      setMessage(data.message);
       setType("success");
       setTimeout(() => {
         setShowToast(false);
       }, 2000);
     } catch (error) {
       setShowToast(true);
-      setMessage("Profile Update Failed");
+      setMessage(data.message);
       setType("error");
       setTimeout(() => {
         setShowToast(false);
@@ -176,11 +178,13 @@ export const ProfileScreen = () => {
             <View
               style={[
                 tw`rounded-lg w-40 mx-auto py-2 my-6 flex flex-row justify-center`,
-                {backgroundColor: "#fffd54"},
+                { backgroundColor: "#fffd54" },
               ]}
             >
               <SaveIcon name="save" color={`#061551`} size={22} />
-              <Text style={[tw`text-base pl-2`, {color: '#061551'}]}>Update</Text>
+              <Text style={[tw`text-base pl-2`, { color: "#061551" }]}>
+                Update
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
