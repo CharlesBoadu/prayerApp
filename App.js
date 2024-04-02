@@ -12,6 +12,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { PrayerAppProvider, usePrayerAppContext } from "./Store/context";
 import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AboutScreen from "./screens/AboutScreen";
+import PrayerUploadScreen from "./screens/PrayerUploadScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -72,6 +74,22 @@ export default function App() {
             component={HomeScreen}
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="About"
+            component={AboutScreen}
+            options={{
+              headerBackTitle: "Settings"
+            }}
+          />
+          <Stack.Screen
+            name="PrayerUpload"
+            component={PrayerUploadScreen}
+            options={{
+              headerBackTitle: "Settings",
+              headerTitle: "Upload Prayer"
+            }}
+          />
+
         </Stack.Navigator>
       </NavigationContainer>
     </PrayerAppProvider>

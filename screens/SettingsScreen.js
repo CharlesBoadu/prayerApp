@@ -1,4 +1,10 @@
-import { SafeAreaView, View, Text, ScrollView } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import tw from "tailwind-react-native-classnames";
 import RightArrow from "react-native-vector-icons/AntDesign";
 import AccountIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -7,8 +13,10 @@ import SecurityIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import NotificationsIcon from "react-native-vector-icons/Ionicons";
 import HelpIcon from "react-native-vector-icons/Entypo";
 import InformationIcon from "react-native-vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
 
 export const SettingsScreen = () => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView>
       <View
@@ -17,12 +25,12 @@ export const SettingsScreen = () => {
           { backgroundColor: "#061551" },
         ]}
       >
-        <Text style={tw`text-white text-2xl font-bold`}>Settings</Text>
-      </View>
-      <View>
-        <Text style={tw`text-xl font-bold p-4`}>General</Text>
+        <Text style={[tw`text-white text-2xl font-bold`]}>Settings</Text>
       </View>
       <ScrollView>
+        <View>
+          <Text style={[tw`text-xl font-bold p-4`, { color: '#061551'}]}>General</Text>
+        </View>
         <View>
           <View
             style={[
@@ -88,7 +96,11 @@ export const SettingsScreen = () => {
               <View
                 style={tw`h-8 w-8 rounded-lg bg-gray-200 mr-2 flex items-center justify-center`}
               >
-                <NotificationsIcon name="notifications" size={20} style={tw``} />
+                <NotificationsIcon
+                  name="notifications"
+                  size={20}
+                  style={tw``}
+                />
               </View>
               <Text style={[tw`font-semibold pt-2`]}>Notification</Text>
             </View>
@@ -114,11 +126,12 @@ export const SettingsScreen = () => {
               <RightArrow name="right" size={20} style={tw``} />
             </View>
           </View>
-          <View
+          <TouchableOpacity
             style={[
               tw`border-b m-4 py-2 flex flex-row justify-between`,
               { borderColor: "gray" },
             ]}
+            onPress={() => navigation.navigate("About")}
           >
             <View style={tw`flex flex-row`}>
               <View
@@ -131,7 +144,31 @@ export const SettingsScreen = () => {
             <View>
               <RightArrow name="right" size={20} style={tw``} />
             </View>
-          </View>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Text style={[tw`text-xl font-bold p-4`, { color: '#061551'}]}>Admin Controls</Text>
+        </View>
+        <View>
+          <TouchableOpacity
+            style={[
+              tw`border-b m-4 py-2 flex flex-row justify-between`,
+              { borderColor: "gray" },
+            ]}
+            onPress={() => navigation.navigate("PrayerUpload")}
+          >
+            <View style={tw`flex flex-row`}>
+              <View
+                style={tw`h-8 w-8 rounded-lg bg-gray-200 mr-2 flex items-center justify-center`}
+              >
+                <AccountIcon name="account" size={20} style={tw``} />
+              </View>
+              <Text style={[tw`font-semibold pt-2`]}>Upload Prayers</Text>
+            </View>
+            <View>
+              <RightArrow name="right" size={20} style={tw``} />
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
