@@ -35,16 +35,17 @@ export const ProfileScreen = () => {
       const data = JSON.parse(user);
       setValues(data);
     };
-    getUser();
+    getUser(); 
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    // await AsyncStorage.removeItem("isLoggedIn");
+    // await AsyncStorage.removeItem("user");
     setShowToast(true);
     setMessage("Logout Successful");
     setType("success");
-    setTimeout(async() => {
+    setTimeout(() => {
       setShowToast(false);
-      await AsyncStorage.removeItem("isLoggedIn");
       navigation.navigate("Auth");
     }, 2000);
   };
@@ -106,7 +107,7 @@ export const ProfileScreen = () => {
             styles.username,
           ]}
         >
-          {values.first_name} {values.last_name}
+          {values?.first_name} {values?.last_name}
         </Text>
       </View>
       <View
@@ -122,7 +123,7 @@ export const ProfileScreen = () => {
                 first_name: newText.toLowerCase(),
               })
             }
-            defaultValue={values.first_name}
+            defaultValue={values?.first_name}
           />
           <TextInput
             style={tw`border-b border-blue-500 w-40 py-4`}
@@ -133,7 +134,7 @@ export const ProfileScreen = () => {
                 last_name: newText.toLowerCase(),
               })
             }
-            defaultValue={values.last_name}
+            defaultValue={values?.last_name}
           />
         </View>
         <View style={tw`flex flex-row mb-5`}>
@@ -146,7 +147,7 @@ export const ProfileScreen = () => {
                 email: newText.toLowerCase(),
               })
             }
-            defaultValue={values.email}
+            defaultValue={values?.email}
           />
           <TextInput
             style={tw`border-b border-blue-500 w-40 py-4`}
@@ -157,7 +158,7 @@ export const ProfileScreen = () => {
                 phone: newText.toLowerCase(),
               })
             }
-            defaultValue={values.phone}
+            defaultValue={values?.phone}
           />
         </View>
         <View style={tw`flex flex-row`}>
@@ -170,7 +171,7 @@ export const ProfileScreen = () => {
                 age: newText.toLowerCase(),
               })
             }
-            defaultValue={values.age.toString()}
+            defaultValue={values?.age.toString()}
           />
         </View>
         <View style={[tw`flex flex-row justify-end`]}>

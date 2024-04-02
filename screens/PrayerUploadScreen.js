@@ -48,8 +48,8 @@ const PrayerUploadScreen = () => {
         setMessage(data.message);
         setType("success");
         setTimeout(() => {
-            setShowToast(false);
-          }, 2000);
+          setShowToast(false);
+        }, 2000);
         setValues({
           ...values,
           category: "",
@@ -110,7 +110,7 @@ const PrayerUploadScreen = () => {
       <View>
         <Text style={tw`text-lg font-bold p-4`}>Prayer Request</Text>
         <TextInput
-        multiline={true}
+          multiline={true}
           style={tw`border border-blue-800 h-40 rounded-lg py-4 mx-5 px-2`}
           onChangeText={(newText) =>
             setValues({

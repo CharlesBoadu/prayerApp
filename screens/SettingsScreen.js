@@ -5,6 +5,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 import tw from "tailwind-react-native-classnames";
 import RightArrow from "react-native-vector-icons/AntDesign";
 import AccountIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -17,6 +19,17 @@ import { useNavigation } from "@react-navigation/native";
 
 export const SettingsScreen = () => {
   const navigation = useNavigation();
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    const getUser = async () => {
+      const user = await AsyncStorage.getItem("user");
+      const data = JSON.parse(user);
+      setRole(data.role);
+    };
+    getUser();
+  }, []);
+
   return (
     <SafeAreaView>
       <View
@@ -29,7 +42,9 @@ export const SettingsScreen = () => {
       </View>
       <ScrollView>
         <View>
-          <Text style={[tw`text-xl font-bold p-4`, { color: '#061551'}]}>General</Text>
+          <Text style={[tw`text-xl font-bold p-4`, { color: "#061551" }]}>
+            General
+          </Text>
         </View>
         <View>
           <View
@@ -146,30 +161,38 @@ export const SettingsScreen = () => {
             </View>
           </TouchableOpacity>
         </View>
-        <View>
-          <Text style={[tw`text-xl font-bold p-4`, { color: '#061551'}]}>Admin Controls</Text>
-        </View>
-        <View>
-          <TouchableOpacity
-            style={[
-              tw`border-b m-4 py-2 flex flex-row justify-between`,
-              { borderColor: "gray" },
-            ]}
-            onPress={() => navigation.navigate("PrayerUpload")}
-          >
-            <View style={tw`flex flex-row`}>
-              <View
-                style={tw`h-8 w-8 rounded-lg bg-gray-200 mr-2 flex items-center justify-center`}
-              >
-                <AccountIcon name="account" size={20} style={tw``} />
-              </View>
-              <Text style={[tw`font-semibold pt-2`]}>Upload Prayers</Text>
+
+        {/* Admin Controls  */}
+        {role === "Global Admin" && (
+          <View>
+            <View>
+              <Text style={[tw`text-xl font-bold p-4`, { color: "#061551" }]}>
+                Admin Controls
+              </Text>
             </View>
             <View>
-              <RightArrow name="right" size={20} style={tw``} />
+              <TouchableOpacity
+                style={[
+                  tw`border-b m-4 py-2 flex flex-row justify-between`,
+                  { borderColor: "gray" },
+                ]}
+                onPress={() => navigation.navigate("PrayerUpload")}
+              >
+                <View style={tw`flex flex-row`}>
+                  <View
+                    style={tw`h-8 w-8 rounded-lg bg-gray-200 mr-2 flex items-center justify-center`}
+                  >
+                    <AccountIcon name="account" size={20} style={tw``} />
+                  </View>
+                  <Text style={[tw`font-semibold pt-2`]}>Upload Prayers</Text>
+                </View>
+                <View>
+                  <RightArrow name="right" size={20} style={tw``} />
+                </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        </View>
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
