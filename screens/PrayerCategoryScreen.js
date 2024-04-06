@@ -73,7 +73,7 @@ export const PrayerCategoryScreen = () => {
       ) : (
         <>
           {fetchedPrayers.some(
-            (item) =>
+            (item, index) =>
               item.category.toLowerCase() ===
               selectedPrayerCategory.toLowerCase()
           ) ? (
@@ -83,18 +83,24 @@ export const PrayerCategoryScreen = () => {
                   prayer?.category.toLowerCase() ===
                   selectedPrayerCategory.toLowerCase()
               )}
-              keyExtractor={(item) => item.user_id.toString()}
-              renderItem={({ item }) => (
-                (
-                  <TouchableOpacity
-                    // style={styles.item}
-                    onPress={() =>
-                      navigation.navigate("PrayerList", { category: item })
-                    }
-                  >
-                    <Text>{item.prayer}</Text>
-                  </TouchableOpacity>
-                )
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item, index }) => (
+                <TouchableOpacity
+                  style={tw`py-4 px-2 border-b border-gray-200`}
+                  // onPress={() =>
+                  //   navigation.navigate("PrayerList", { category: item })
+                  // }
+                >
+                  <View style={tw`flex flex-row`}>
+                    <Text style={tw`pt-1 pr-2 text-red-600`}>{index + 1}</Text>
+                  <Text style={tw`text-lg`}>
+                    {item.prayer}
+                  </Text>
+                  </View>
+                  <View style={tw`flex flex-row justify-end`}>
+                    <Text style={tw`text-green-500`}>({item.scripture})</Text>
+                  </View>
+                </TouchableOpacity>
               )}
             />
           ) : (
