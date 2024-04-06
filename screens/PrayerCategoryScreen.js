@@ -14,11 +14,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BackButton } from "../components/BackButton";
 import { FlatList } from "react-native-gesture-handler";
 import tw from "tailwind-react-native-classnames";
-import Spinner from "react-native-loading-spinner-overlay";
-// import LoadingSpinner from 'react-native-spinkit';
+import { Modal } from "../components/Modal";
 
 export const PrayerCategoryScreen = () => {
   const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedScripture, setSelectedScripture] = useState("");
   const {
     selectedPrayerCategory,
     setSelectedPrayerCategory,
@@ -55,6 +56,13 @@ export const PrayerCategoryScreen = () => {
   }, []);
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
+      {showModal && (
+        <View style={[tw`absolute inset-0 z-50 flex items-center justify-center`, { backgroundColor: 'rgba(0, 0, 0, 0.7)'}]}>
+          {/* Render the Modal component with selected prayer details */}
+          <Modal scripture={selectedScripture} setShowModal={setShowModal}/>
+        </View>
+      )}
+
       <BackButton />
       <View
         style={[
@@ -73,7 +81,7 @@ export const PrayerCategoryScreen = () => {
       ) : (
         <>
           {fetchedPrayers.some(
-            (item, index) =>
+            (item) =>
               item.category.toLowerCase() ===
               selectedPrayerCategory.toLowerCase()
           ) ? (
@@ -86,16 +94,16 @@ export const PrayerCategoryScreen = () => {
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item, index }) => (
                 <TouchableOpacity
+                  // activeOpacity={0.3}
                   style={tw`py-4 px-2 border-b border-gray-200`}
-                  // onPress={() =>
-                  //   navigation.navigate("PrayerList", { category: item })
-                  // }
+                  onPress={() => {
+                    setShowModal(true)
+                    setSelectedScripture(item.scripture)
+                  }}
                 >
                   <View style={tw`flex flex-row`}>
                     <Text style={tw`pt-1 pr-2 text-red-600`}>{index + 1}</Text>
-                  <Text style={tw`text-lg`}>
-                    {item.prayer}
-                  </Text>
+                    <Text style={tw`text-lg`}>{item.prayer}</Text>
                   </View>
                   <View style={tw`flex flex-row justify-end`}>
                     <Text style={tw`text-green-500`}>({item.scripture})</Text>
