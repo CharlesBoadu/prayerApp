@@ -14,6 +14,7 @@ import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AboutScreen from "./screens/AboutScreen";
 import PrayerUploadScreen from "./screens/PrayerUploadScreen";
+import { PrayerCategoryScreen } from "./screens/PrayerCategoryScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -48,8 +49,9 @@ export default function App() {
       const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
       setIsLoggedIn(isLoggedIn);
     };
+    
     getUser();
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <PrayerAppProvider>
@@ -78,7 +80,14 @@ export default function App() {
             name="About"
             component={AboutScreen}
             options={{
-              headerBackTitle: "Settings"
+              headerBackTitle: "Settings",
+            }}
+          />
+          <Stack.Screen
+            name="PrayerCategory"
+            component={PrayerCategoryScreen}
+            options={{
+              headerShown: false,
             }}
           />
           <Stack.Screen
@@ -86,10 +95,9 @@ export default function App() {
             component={PrayerUploadScreen}
             options={{
               headerBackTitle: "Settings",
-              headerTitle: "Upload Prayer"
+              headerTitle: "Upload Prayer",
             }}
           />
-
         </Stack.Navigator>
       </NavigationContainer>
     </PrayerAppProvider>

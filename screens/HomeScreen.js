@@ -1,11 +1,8 @@
-import { SafeAreaView, ScrollView, Settings, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import tw from "tailwind-react-native-classnames";
-import { TopNav } from "../components/TopNav";
-import { PrayerCategories } from "../components/PrayerCategories";
 import { PrayerAppProvider, usePrayerAppContext } from "../Store/context";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import React from "react";
-import { useFocusEffect } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AllPrayersScreen } from "./AllPrayersScreen";
 import { NotificationsScreen } from "../screens/NotificationsScreen";

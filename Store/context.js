@@ -14,6 +14,7 @@ export const PrayerAppProvider = ({ children }) => {
   const [fetchedWarfarePrayers, setFetchedWarfarePrayers] = useState([]);
   const [fetchedPraisePrayers, setFetchedPraisePrayers] = useState([]);
   const [fetchedProtectionPrayers, setFetchedProtectionPrayers] = useState([]);
+  const [selectedPrayerCategory, setSelectedPrayerCategory] = useState("dfdwf");
   const [newNotification, setNewNotification] = useState(true);
 
   useEffect(() => {
@@ -94,6 +95,8 @@ export const PrayerAppProvider = ({ children }) => {
         setFavoritePrayers,
         newNotification,
         setNewNotification,
+        selectedPrayerCategory,
+        setSelectedPrayerCategory,
       }}
     >
       {children}

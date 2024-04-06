@@ -1,14 +1,30 @@
-import { SafeAreaView, View, Text, StyleSheet } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import tw from "tailwind-react-native-classnames";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import MoneyIcon from 'react-native-vector-icons/Fontisto';
-import HealthIcon from 'react-native-vector-icons/FontAwesome';
-import PrayerIcon from 'react-native-vector-icons/FontAwesome5';
-import WarfareIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import PraiseIcon from 'react-native-vector-icons/FontAwesome5';
-import ProtectionIcon from 'react-native-vector-icons/FontAwesome5';
+import MoneyIcon from "react-native-vector-icons/Fontisto";
+import HealthIcon from "react-native-vector-icons/FontAwesome";
+import PrayerIcon from "react-native-vector-icons/FontAwesome5";
+import WarfareIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import PraiseIcon from "react-native-vector-icons/FontAwesome5";
+import ProtectionIcon from "react-native-vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
+import { usePrayerAppContext } from "../Store/context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AllPrayersScreen = () => {
+  const navigation = useNavigation();
+  const { setSelectedPrayerCategory } = usePrayerAppContext();
+
+  const handleNavigation = (category) => {
+    navigation.navigate("PrayerCategory");
+    AsyncStorage.setItem("selectedPrayerCategory", category);
+  };
+
   return (
     <SafeAreaView style={[tw`h-full`, styles.container]}>
       <View style={[tw`py-2 ml-4`, styles.header]}>
@@ -18,83 +34,98 @@ export const AllPrayersScreen = () => {
           </Text>
         </View>
         <View>
-          <View style={[tw`w-20 h-20 rounded-lg flex items-center justify-center`, styles.box]}>
+          <View
+            style={[
+              tw`w-20 h-20 rounded-lg flex items-center justify-center`,
+              styles.box,
+            ]}
+          >
             <PrayerIcon name="praying-hands" color={`#061551`} size={40} />
           </View>
         </View>
       </View>
       <View style={tw`m-8`}>
         <View style={[tw`mb-8`, styles.prayerCategories]}>
-          <View
-            style={[
-              tw`w-40 h-40 rounded-lg flex items-center justify-center`,
-              styles.categoryContainer,
-            ]}
-          >
-            <View>
-            <HealthIcon name="heartbeat" color={`white`} size={50} />
+          <TouchableOpacity onPress={handleNavigation.bind(this, "Health")}>
+            <View
+              style={[
+                tw`w-40 h-40 rounded-lg flex items-center justify-center`,
+                styles.categoryContainer,
+              ]}
+            >
+              <View>
+                <HealthIcon name="heartbeat" color={`white`} size={50} />
+              </View>
+              <View style={tw`border-b border-white mt-3`}>
+                <Text style={[tw`text-lg text-white`]}>Health</Text>
+              </View>
             </View>
-            <View style={tw`border-b border-white mt-3`}>
-              <Text style={[tw`text-lg text-white`]}>Health</Text>
-            </View>
-          </View>
-          <View
-            style={[
-              tw`w-40 h-40 rounded-lg flex items-center justify-center`,
-              styles.categoryContainer,
-            ]}
-          >
-            <View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleNavigation.bind(this, "Wealth")}>
+            <View
+              style={[
+                tw`w-40 h-40 rounded-lg flex items-center justify-center`,
+                styles.categoryContainer,
+              ]}
+            >
+              <View>
                 <MoneyIcon name="money-symbol" color={`white`} size={50} />
+              </View>
+              <View style={tw`border-b border-white mt-3`}>
+                <Text style={[tw`text-lg text-white`]}>Wealth</Text>
+              </View>
             </View>
-            <View style={tw`border-b border-white mt-3`}>
-              <Text style={[tw`text-lg text-white`]}>Wealth</Text>
-            </View>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={[tw`mb-8`, styles.prayerCategories]}>
-        <View
-            style={[
-              tw`w-40 h-40 rounded-lg flex items-center justify-center`,
-              styles.categoryContainer,
-            ]}
-          >
-            <View>
+          <TouchableOpacity onPress={handleNavigation.bind(this, "Warfare")}>
+            <View
+              style={[
+                tw`w-40 h-40 rounded-lg flex items-center justify-center`,
+                styles.categoryContainer,
+              ]}
+            >
+              <View>
                 <WarfareIcon name="sword-cross" color={`white`} size={50} />
+              </View>
+              <View style={tw`border-b border-white mt-3`}>
+                <Text style={[tw`text-lg text-white`]}>Warfare</Text>
+              </View>
             </View>
-            <View style={tw`border-b border-white mt-3`}>
-              <Text style={[tw`text-lg text-white`]}>Warfare</Text>
-            </View>
-          </View>
-        <View
-            style={[
-              tw`w-40 h-40 rounded-lg flex items-center justify-center`,
-              styles.categoryContainer,
-            ]}
-          >
-            <View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleNavigation.bind(this, "Praise")}>
+            <View
+              style={[
+                tw`w-40 h-40 rounded-lg flex items-center justify-center`,
+                styles.categoryContainer,
+              ]}
+            >
+              <View>
                 <PraiseIcon name="pray" color={`white`} size={50} />
+              </View>
+              <View style={tw`border-b border-white mt-3`}>
+                <Text style={[tw`text-lg text-white`]}>Praise</Text>
+              </View>
             </View>
-            <View style={tw`border-b border-white mt-3`}>
-              <Text style={[tw`text-lg text-white`]}>Praise</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity onPress={handleNavigation.bind(this, "Protection")}>
+          <View style={[tw``, styles.prayerCategories]}>
+            <View
+              style={[
+                tw`w-40 h-40 rounded-lg flex items-center justify-center`,
+                styles.categoryContainer,
+              ]}
+            >
+              <View>
+                <ProtectionIcon name="user-shield" color={`white`} size={50} />
+              </View>
+              <View style={tw`border-b border-white mt-3`}>
+                <Text style={[tw`text-lg text-white`]}>Protection</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={[tw``, styles.prayerCategories]}>
-        <View
-            style={[
-              tw`w-40 h-40 rounded-lg flex items-center justify-center`,
-              styles.categoryContainer,
-            ]}
-          >
-            <View>
-                <ProtectionIcon name="user-shield" color={`white`} size={50} />
-            </View>
-            <View style={tw`border-b border-white mt-3`}>
-              <Text style={[tw`text-lg text-white`]}>Protection</Text>
-            </View>
-          </View>          
-        </View>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

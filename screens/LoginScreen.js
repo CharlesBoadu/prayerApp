@@ -50,6 +50,7 @@ export const LoginScreen = () => {
       if (data.statusCode === "PA00") {
         await AsyncStorage.setItem("user", JSON.stringify(data.data));
         await AsyncStorage.setItem("isLoggedIn", "true");
+        // await AsyncStorage.setItem("initialRoute", 'Home');
         setShowToast(true);
         setMessage("Login Successful");
         setType("success");

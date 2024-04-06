@@ -14,7 +14,7 @@ const AboutScreen = () => {
         their prayer lives by providing a platform for communal prayer, personal
         reflection, and spiritual growth. With a user-friendly interface and a
         range of features tailored to individual and community needs,
-        PrayTogether aims to foster deeper connections with God and fellow
+        PrayerApp aims to foster deeper connections with God and fellow
         believers.
       </Text>
     </SafeAreaView>
