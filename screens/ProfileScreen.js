@@ -32,7 +32,7 @@ export const ProfileScreen = () => {
   useEffect(() => {
     const getUser = async () => {
       const user = await AsyncStorage.getItem("user");
-      const data = JSON.parse(user);
+      const data = JSON.parse(user); 
       setValues(data);
     };
     getUser(); 

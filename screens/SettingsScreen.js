@@ -45,7 +45,7 @@ export const SettingsScreen = () => {
           <Text style={[tw`text-xl font-bold p-4`, { color: "#061551" }]}>
             General
           </Text>
-        </View>
+        </View> 
         <View>
           <View
             style={[
