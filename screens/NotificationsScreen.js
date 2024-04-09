@@ -1,9 +1,7 @@
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import tw from "tailwind-react-native-classnames";
-import { StatusBar } from "expo-status-bar";
-import { TopNav } from "../components/TopNav";
 import { usePrayerAppContext } from "../Store/context";
-import React, { useEffect } from "react";
+import React from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { Image } from "react-native";
 import NotificationCard from "../components/NotificationCard";

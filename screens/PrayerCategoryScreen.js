@@ -15,11 +15,20 @@ import { BackButton } from "../components/BackButton";
 import { FlatList } from "react-native-gesture-handler";
 import tw from "tailwind-react-native-classnames";
 import { Modal } from "../components/Modal";
+import ShowToastWithGravityAndOffset from "../components/Toast";
+
 
 export const PrayerCategoryScreen = () => {
   const navigation = useNavigation();
+  const toastPosition = 70;
+  const [type, setType] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState("");
+  let modalOption = {
+    option_name: "Add To Favorites",
+  };
   const [showModal, setShowModal] = useState(false);
-  const [selectedScripture, setSelectedScripture] = useState("");
+  const [selectedPrayer, setSelectedPrayer] = useState("");
   const {
     selectedPrayerCategory,
     setSelectedPrayerCategory,
@@ -27,39 +36,78 @@ export const PrayerCategoryScreen = () => {
     loading,
   } = usePrayerAppContext();
 
-  // console.log("Fetched Prayers", fetchedPrayers);
-  // console.log("loading", loading);
-
   useEffect(() => {
     const getSelectedCategory = async () => {
       const category = await AsyncStorage.getItem("selectedPrayerCategory");
       setSelectedPrayerCategory(category);
     };
 
-    // const categorizePrayers = () => {
-    //   const category = fetchedPrayers.map((prayer) => prayer.category);
-    //   if (category.toLowerCase() === "health") {
-    //     setHealthPrayers(category);
-    //   } else if (category.toLowerCase() === "wealth") {
-    //     setPraisePrayers(category);
-    //   } else if (category.toLowerCase() === "warfare") {
-    //     setWarfarePrayers(category);
-    //   } else if (category.toLowerCase() === "praise") {
-    //     setPraisePrayers(category);
-    //   } else if (category.toLowerCase() === "protection") {
-    //     setProtectionPrayers(category);
-    //   }
-    // };
-
     getSelectedCategory();
-    // categorizePrayers();
   }, []);
+
+  const handleAddToFavorites = async () => {
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:5000/api/v1/favorite_prayers/new",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prayer_id: selectedPrayer?.id,
+            prayer: selectedPrayer.prayer,
+            scripture: selectedPrayer.scripture,
+            category: selectedPrayer.category,
+            user_id: selectedPrayer.user_id,
+          }),
+        }
+      );
+      const data = await response.json();
+      if (data.statusCode === "PA00") {
+        setShowToast(true);
+        setMessage("Prayer Added to Favorites");
+        setType("success");
+        setTimeout(() => {
+          setShowToast(false);
+          // navigation.navigate("Home");
+        }, 2000);
+      } else {
+        setShowToast(true);
+        setType("error");
+        setMessage(data.message);
+        setTimeout(() => {
+          setShowToast(false);
+        }, 2000);
+      }
+    } catch (error) {
+      console.error("Error Fetching Favorite Prayers:", error);
+    }
+  };
+
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
+      {showToast && (
+        <ShowToastWithGravityAndOffset
+          message={message}
+          type={type}
+          position={toastPosition}
+        />
+      )}
       {showModal && (
-        <View style={[tw`absolute inset-0 z-50 flex items-center justify-center`, { backgroundColor: 'rgba(0, 0, 0, 0.7)'}]}>
+        <View
+          style={[
+            tw`absolute inset-0 z-50 flex items-center justify-center`,
+            { backgroundColor: "rgba(0, 0, 0, 0.7)" },
+          ]}
+        >
           {/* Render the Modal component with selected prayer details */}
-          <Modal scripture={selectedScripture} setShowModal={setShowModal}/>
+          <Modal
+            prayer={selectedPrayer}
+            setShowModal={setShowModal}
+            modalOptions={modalOption}
+            action={handleAddToFavorites}
+          />
         </View>
       )}
 
@@ -97,8 +145,8 @@ export const PrayerCategoryScreen = () => {
                   // activeOpacity={0.3}
                   style={tw`py-4 px-2 border-b border-gray-200`}
                   onPress={() => {
-                    setShowModal(true)
-                    setSelectedScripture(item.scripture)
+                    setShowModal(true);
+                    setSelectedPrayer(item);
                   }}
                 >
                   <View style={tw`flex flex-row`}>
