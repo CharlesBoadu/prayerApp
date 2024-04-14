@@ -163,7 +163,7 @@ export const SettingsScreen = () => {
         </View>
 
         {/* Admin Controls  */}
-        {role === "Global Admin" && (
+        {role === "Global Admin" || role === "Admin" && (
           <View>
             <View>
               <Text style={[tw`text-xl font-bold p-4`, { color: "#061551" }]}>

@@ -34,7 +34,7 @@ export const PrayerCategoryScreen = () => {
     fetchedPrayers,
     loading,
     setTriggerFetch,
-    triggerFetch
+    triggerFetch,
   } = usePrayerAppContext();
 
   useEffect(() => {
@@ -42,6 +42,8 @@ export const PrayerCategoryScreen = () => {
       const category = await AsyncStorage.getItem("selectedPrayerCategory");
       setSelectedPrayerCategory(category);
     };
+
+    setTriggerFetch(!triggerFetch);
 
     getSelectedCategory();
   }, []);
@@ -143,22 +145,28 @@ export const PrayerCategoryScreen = () => {
               )}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item, index }) => (
-                <TouchableOpacity
-                  // activeOpacity={0.3}
-                  style={tw`py-4 px-2 border-b border-gray-200`}
-                  onPress={() => {
-                    setShowModal(true);
-                    setSelectedPrayer(item);
-                  }}
-                >
-                  <View style={tw`flex flex-row`}>
-                    <Text style={tw`pt-1 pr-2 text-red-600`}>{index + 1}</Text>
-                    <Text style={tw`text-lg`}>{item.prayer}</Text>
-                  </View>
-                  <View style={tw`flex flex-row justify-end`}>
-                    <Text style={tw`text-green-500`}>({item.scripture})</Text>
-                  </View>
-                </TouchableOpacity>
+                (
+                  <TouchableOpacity
+                    // activeOpacity={0.3}
+                    style={tw`py-4 px-2 border-b border-gray-200 ${
+                      item.is_favorite === true ? "bg-yellow-200" : ""
+                    }`}
+                    onPress={() => {
+                      setShowModal(true);
+                      setSelectedPrayer(item);
+                    }}
+                  >
+                    <View style={tw`flex flex-row`}>
+                      <Text style={tw`pt-1 pr-2 text-red-600`}>
+                        {index + 1}
+                      </Text>
+                      <Text style={tw`text-lg`}>{item.prayer}</Text>
+                    </View>
+                    <View style={tw`flex flex-row justify-end`}>
+                      <Text style={tw`text-green-500`}>({item.scripture})</Text>
+                    </View>
+                  </TouchableOpacity>
+                )
               )}
             />
           ) : (

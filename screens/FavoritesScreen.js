@@ -35,6 +35,10 @@ export const FavoritesScreen = () => {
     option_name: "Remove From Favorites",
   };
 
+  useEffect(() => {
+    setTriggerFetch(!triggerFetch);
+  }, [loading]);
+
   const handleRemoveFromFavorites = async () => {
     try {
       const response = await fetch(
@@ -56,10 +60,8 @@ export const FavoritesScreen = () => {
         setMessage(data?.message);
         setType("success");
         setTriggerFetch(!triggerFetch);
-        setTimeout(() => {
-          setShowToast(false);
-          setShowModal(false);
-        }, 2000);
+        setShowToast(false);
+        setShowModal(false);
       } else {
         setShowToast(true);
         setType("error");
@@ -71,7 +73,7 @@ export const FavoritesScreen = () => {
     } catch (error) {
       console.error("Error Removing Favorite Prayer:", error);
     }
-  }; 
+  };
 
   return (
     <SafeAreaView style={tw`bg-white h-full`}>

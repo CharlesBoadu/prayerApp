@@ -32,7 +32,7 @@ export const AllPrayersScreen = () => {
           <Text style={tw`text-xl font-bold my-auto text-white`}>
             All Prayers
           </Text>
-        </View>
+        </View> 
         <View>
           <View
             style={[

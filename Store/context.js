@@ -29,10 +29,10 @@ export const PrayerAppProvider = ({ children }) => {
         console.error("Error Fetching All Prayers:", error);
       }
     };
-
+ 
     const fetchFavoritePrayerByUser = async () => {
       const user = await AsyncStorage.getItem("user");
-      const userData = JSON.parse(user);
+      const userData = JSON.parse(user); 
 
       try {
         const response = await fetch(
@@ -42,7 +42,7 @@ export const PrayerAppProvider = ({ children }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ user_id: 2 }),
+            body: JSON.stringify({ user_id: userData?.id }),
           }
         );
         const data = await response.json();
@@ -58,7 +58,7 @@ export const PrayerAppProvider = ({ children }) => {
 
     fetchPrayers();
     fetchFavoritePrayerByUser();
-  }, [triggerFetch]); 
+  }, [triggerFetch]);   
 
   return (
     <PrayerAppContext.Provider

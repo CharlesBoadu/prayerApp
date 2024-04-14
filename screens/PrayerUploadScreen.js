@@ -5,10 +5,12 @@ import { Picker } from "@react-native-picker/picker";
 import UploadIcon from "react-native-vector-icons/Feather";
 import ShowToastWithGravityAndOffset from "../components/Toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { usePrayerAppContext } from "../Store/context";
 
 const PrayerUploadScreen = () => {
   let toastPosition = 10;
   const [selectedValue, setSelectedValue] = useState("");
+  const { triggerFetch, setTriggerFetch } = usePrayerAppContext();
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
@@ -50,6 +52,7 @@ const PrayerUploadScreen = () => {
         setTimeout(() => {
           setShowToast(false);
         }, 2000);
+        setTriggerFetch(!triggerFetch);
         setValues({
           ...values,
           category: "",
