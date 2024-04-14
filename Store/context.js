@@ -28,7 +28,7 @@ export const PrayerAppProvider = ({ children }) => {
       } catch (error) {
         console.error("Error Fetching All Prayers:", error);
       }
-    };
+    }; 
  
     const fetchFavoritePrayerByUser = async () => {
       const user = await AsyncStorage.getItem("user");
@@ -47,6 +47,7 @@ export const PrayerAppProvider = ({ children }) => {
         );
         const data = await response.json();
         setFavoritePrayers(data?.data);
+        setFavoritesCount(data?.data.length);
       } catch (error) {
         console.error("Error Fetching Favorite Prayers:", error);
       }

@@ -35,10 +35,6 @@ export const FavoritesScreen = () => {
     option_name: "Remove From Favorites",
   };
 
-  useEffect(() => {
-    setTriggerFetch(!triggerFetch);
-  }, [loading]);
-
   const handleRemoveFromFavorites = async () => {
     try {
       const response = await fetch(
