@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   Text,
@@ -19,85 +19,69 @@ import { TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FavoriteIcon from "react-native-vector-icons/Fontisto";
 import { usePrayerAppContext } from "../Store/context";
+import ShowToastWithGravityAndOffset from "../components/Toast";
 
 export const FavoritesScreen = () => {
-  const { favoritePrayers, loading, selectedPrayerCategory } = usePrayerAppContext();
+  const toastPosition = 70;
+  const { favoritePrayers, loading, triggerFetch, setTriggerFetch } =
+    usePrayerAppContext();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedFavorite, setSelectedFavorite] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [type, setType] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState("");
   let modalOption = {
     option_name: "Remove From Favorites",
   };
 
-  // const handleAddToFavorites = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://127.0.0.1:5000/api/v1/favorite_prayers/new",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           prayer_id: prayer?.id,
-  //           prayer: prayer.prayer,
-  //           scripture: prayer.scripture,
-  //           category: prayer.category,
-  //           user_id: prayer.user_id,
-  //         }),
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     if (data.statusCode === "PA00") {
-  //       setShowToast(true);
-  //       setMessage("Prayer Added to Favorites");
-  //       setType("success");
-  //       setTimeout(() => {
-  //         setShowToast(false);
-  //         // navigation.navigate("Home");
-  //       }, 2000);
-  //     } else {
-  //       setShowToast(true);
-  //       setType("error");
-  //       setMessage(data.message);
-  //       setTimeout(() => {
-  //         setShowToast(false);
-  //       }, 2000);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error Fetching Favorite Prayers:", error);
-  //   }
-  // };
-
-  // console.log("Favorite Prayers", favoritePrayers);
-
-  // const closeModal = () => {
-  //   setIsModalVisible(false);
-  //   setFavoritePrayers((prev) =>
-  //     prev.filter((prayer) => prayer.id !== selectedPrayer.id)
-  //   );
-  //   setFavoritesCount(favoritesCount - 1);
-  // };
-
-  // const showToastWithGravityAndOffset = () => {
-  //   ToastAndroid.showWithGravityAndOffset(
-  //     "Prayer Removed from Favorites",
-  //     ToastAndroid.LONG,
-  //     ToastAndroid.BOTTOM,
-  //     25,
-  //     50
-  //   );
-  // };
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     setGlobalName("Favorite Prayers");
-  //     setShowPrayers(false);
-  //   }, [])
-  // );
+  const handleRemoveFromFavorites = async () => {
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:5000/api/v1/user/favorite_prayers",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prayer_id: selectedFavorite?.id,
+            user_id: selectedFavorite?.user_id,
+          }),
+        }
+      );
+      const data = await response.json();
+      if (data.statusCode === "PA00") {
+        setShowToast(true);
+        setMessage(data?.message);
+        setType("success");
+        setTriggerFetch(!triggerFetch);
+        setTimeout(() => {
+          setShowToast(false);
+          setShowModal(false);
+        }, 2000);
+      } else {
+        setShowToast(true);
+        setType("error");
+        setMessage(data.message);
+        setTimeout(() => {
+          setShowToast(false);
+        }, 2000);
+      }
+    } catch (error) {
+      console.error("Error Removing Favorite Prayer:", error);
+    }
+  }; 
 
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
+      {showToast && (
+        <ShowToastWithGravityAndOffset
+          message={message}
+          type={type}
+          position={toastPosition}
+        />
+      )}
       {showModal && (
         <View
           style={[
@@ -110,7 +94,7 @@ export const FavoritesScreen = () => {
             prayer={selectedFavorite}
             setShowModal={setShowModal}
             modalOptions={modalOption}
-            action={""}
+            action={handleRemoveFromFavorites}
           />
         </View>
       )}
@@ -161,9 +145,7 @@ export const FavoritesScreen = () => {
                 alt="No Prayers Image"
                 style={styles.image}
               />
-              <Text style={tw`text-xl font-bold`}>
-                No Prayers About {selectedPrayerCategory} Yet
-              </Text>
+              <Text style={tw`text-xl font-bold`}>No Favorite Prayers Yet</Text>
             </View>
           )}
         </>

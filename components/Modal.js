@@ -13,11 +13,7 @@ export const Modal = ({ prayer, setShowModal, modalOptions, action }) => {
       </View>
       <TouchableOpacity
         style={tw`py-4 px-2 border-b border-gray-200`}
-        onPress={() => {
-          modalOptions?.option_name == "Add To Favorites"
-            ? action()
-            : handleRemoveFromFavorites();
-        }}
+        onPress={() => action()}
       >
         <Text style={tw`text-center text-lg`}>{modalOptions?.option_name}</Text>
       </TouchableOpacity>

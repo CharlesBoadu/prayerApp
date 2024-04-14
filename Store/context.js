@@ -13,6 +13,7 @@ export const PrayerAppProvider = ({ children }) => {
   const [fetchedPrayers, setFetchedPrayers] = useState([]);
   const [selectedPrayerCategory, setSelectedPrayerCategory] = useState("");
   const [newNotification, setNewNotification] = useState(true);
+  const [triggerFetch, setTriggerFetch] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,15 +33,18 @@ export const PrayerAppProvider = ({ children }) => {
     const fetchFavoritePrayerByUser = async () => {
       const user = await AsyncStorage.getItem("user");
       const userData = JSON.parse(user);
-     
+
       try {
-        const response = await fetch("http://127.0.0.1:5000/api/v1/user/favorite_prayers", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ user_id: 2 }),
-        });
+        const response = await fetch(
+          "http://127.0.0.1:5000/api/v1/user/favorite_prayers",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user_id: 2 }),
+          }
+        );
         const data = await response.json();
         setFavoritePrayers(data?.data);
       } catch (error) {
@@ -54,7 +58,7 @@ export const PrayerAppProvider = ({ children }) => {
 
     fetchPrayers();
     fetchFavoritePrayerByUser();
-  }, []);
+  }, [triggerFetch]); 
 
   return (
     <PrayerAppContext.Provider
@@ -75,7 +79,10 @@ export const PrayerAppProvider = ({ children }) => {
         newNotification,
         setNewNotification,
         selectedPrayerCategory,
-        setSelectedPrayerCategory      }}
+        setSelectedPrayerCategory,
+        triggerFetch,
+        setTriggerFetch,
+      }}
     >
       {children}
     </PrayerAppContext.Provider>

@@ -17,7 +17,6 @@ import tw from "tailwind-react-native-classnames";
 import { Modal } from "../components/Modal";
 import ShowToastWithGravityAndOffset from "../components/Toast";
 
-
 export const PrayerCategoryScreen = () => {
   const navigation = useNavigation();
   const toastPosition = 70;
@@ -34,6 +33,8 @@ export const PrayerCategoryScreen = () => {
     setSelectedPrayerCategory,
     fetchedPrayers,
     loading,
+    setTriggerFetch,
+    triggerFetch
   } = usePrayerAppContext();
 
   useEffect(() => {
@@ -68,9 +69,10 @@ export const PrayerCategoryScreen = () => {
         setShowToast(true);
         setMessage("Prayer Added to Favorites");
         setType("success");
+        setTriggerFetch(!triggerFetch);
+        setShowModal(false);
         setTimeout(() => {
           setShowToast(false);
-          // navigation.navigate("Home");
         }, 2000);
       } else {
         setShowToast(true);
