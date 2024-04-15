@@ -65,7 +65,6 @@ const AddUserScreen = () => {
   };
 
   const handleAddNewUser = async () => {
-    console.log("Here");
     try {
       const response = await fetch(
         `http://127.0.0.1:5000/api/v1/user/register`,
@@ -77,7 +76,6 @@ const AddUserScreen = () => {
           body: JSON.stringify(formData),
         }
       );
-      console.log("Form Data", formData);
       const data = await response.json();
       if (data.statusCode === "PA00") {
         setShowToast(true);
