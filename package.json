@@ -25,6 +25,7 @@
     "react-native": "0.72.6",
     "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-modal": "^13.0.1",
+    "react-native-progress": "^5.0.1",
     "react-native-spinkit": "^1.5.1",
     "react-native-splash-screen": "^3.3.0",
     "react-native-toast-message": "^2.1.6",

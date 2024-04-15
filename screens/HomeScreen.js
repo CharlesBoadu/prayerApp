@@ -50,8 +50,8 @@ export const AppNavigator = () => {
               {favoritesCount === 0 ? null : (
                 <View
                   style={[
-                    { backgroundColor: "#fffd54", marginLeft: "-5%", marginTop: "-3%", height: 20,},
-                    tw`px-3 py-0 rounded-lg opacity-90`,
+                    { backgroundColor: "#cfd3d3", marginLeft: "-5%", marginTop: "-3%", height: 22, width: 20},
+                    tw`rounded-full opacity-90 flex items-center justify-center`,
                   ]}
                 >
                   <Text style={{ color: "#061551", fontWeight: "bold" }}>

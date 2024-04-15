@@ -16,6 +16,7 @@ import AboutScreen from "./screens/AboutScreen";
 import PrayerUploadScreen from "./screens/PrayerUploadScreen";
 import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { PrayerCategoryScreen } from "./screens/PrayerCategoryScreen";
+import AddUserScreen from "./screens/AddUserScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -53,12 +54,13 @@ export default function App() {
 
     getUser();
   }, [isLoggedIn]);
+  console.log("IsLoggedIn", isLoggedIn);
 
   return (
     <PrayerAppProvider>
       <Toast />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName={isLoggedIn ? `Home` : `Auth`}>
           <Stack.Screen
             name="Auth"
             component={AuthScreen}
@@ -100,11 +102,12 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="favorites"
-            component={FavoritesScreen}
-            // options={{
-            //   headerTitle: "Upload Prayer",
-            // }}
+            name="addUser"
+            component={AddUserScreen}
+            options={{
+              headerBackTitle: "Settings",
+              headerTitle: "Add New User",
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -109,10 +109,11 @@ export const LoginScreen = () => {
           onChangeText={(newText) =>
             setValues({
               ...values,
-              password: newText.toLowerCase(),
+              password: newText,
             })
           }
           defaultValue={values.password}
+          autoCapitalize="none"
         />
         <TouchableOpacity onPress={() => handleLogin()}>
           <View

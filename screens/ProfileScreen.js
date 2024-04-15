@@ -39,8 +39,8 @@ export const ProfileScreen = () => {
   }, []);
 
   const handleLogout = async () => {
-    // await AsyncStorage.removeItem("isLoggedIn");
-    // await AsyncStorage.removeItem("user");
+    await AsyncStorage.removeItem("isLoggedIn");
+    await AsyncStorage.removeItem("user");
     setShowToast(true);
     setMessage("Logout Successful");
     setType("success");

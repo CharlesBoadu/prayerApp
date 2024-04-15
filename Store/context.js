@@ -28,11 +28,11 @@ export const PrayerAppProvider = ({ children }) => {
       } catch (error) {
         console.error("Error Fetching All Prayers:", error);
       }
-    }; 
- 
+    };
+
     const fetchFavoritePrayerByUser = async () => {
       const user = await AsyncStorage.getItem("user");
-      const userData = JSON.parse(user); 
+      const userData = JSON.parse(user);
 
       try {
         const response = await fetch(
@@ -56,10 +56,10 @@ export const PrayerAppProvider = ({ children }) => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-
+ 
     fetchPrayers();
     fetchFavoritePrayerByUser();
-  }, [triggerFetch]);   
+  }, [triggerFetch]);
 
   return (
     <PrayerAppContext.Provider
