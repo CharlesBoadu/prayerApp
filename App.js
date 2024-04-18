@@ -14,9 +14,10 @@ import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AboutScreen from "./screens/AboutScreen";
 import PrayerUploadScreen from "./screens/PrayerUploadScreen";
-import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { PrayerCategoryScreen } from "./screens/PrayerCategoryScreen";
 import AddUserScreen from "./screens/AddUserScreen";
+import { UsersScreen } from "./screens/UsersScreen";
+import { ViewUserScreen } from "./screens/ViewUserScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -60,7 +61,7 @@ export default function App() {
     <PrayerAppProvider>
       <Toast />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={isLoggedIn ? `Home` : `Auth`}>
+        <Stack.Navigator initialRouteName={"Home"}>
           <Stack.Screen
             name="Auth"
             component={AuthScreen}
@@ -107,6 +108,22 @@ export default function App() {
             options={{
               headerBackTitle: "Settings",
               headerTitle: "Add New User",
+            }}
+          />
+          <Stack.Screen
+            name="viewUsers"
+            component={UsersScreen}
+            options={{
+              headerBackTitle: "Settings",
+              headerTitle: "All Users",
+            }}
+          />
+          <Stack.Screen
+            name="userDetails"
+            component={ViewUserScreen}
+            options={{
+              headerBackTitle: "Settings",
+              headerTitle: "User Details",
             }}
           />
         </Stack.Navigator>

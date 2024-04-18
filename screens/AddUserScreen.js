@@ -144,7 +144,7 @@ const AddUserScreen = () => {
             value={formData.email}
             onChangeText={(text) => handleInputChange("email", text)}
           />
-          <Button title="Next Step" onPress={handleNextStep} />
+          <Button title="Next Step" onPress={handleNextStep}/>
         </View>
       )}
 
