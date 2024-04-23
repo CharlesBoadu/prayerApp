@@ -119,7 +119,7 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="userDetails"
+            name="ViewUser"
             component={ViewUserScreen}
             options={{
               headerBackTitle: "Settings",

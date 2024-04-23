@@ -28,7 +28,6 @@ export const UsersScreen = () => {
             }
           );
           const data = await response.json();
-          console.log("Data", data);
           setFetchedUsers(data?.data);
         } catch (error) {
           console.error("Error Fetching All Users By Organization:", error);
@@ -40,6 +39,7 @@ export const UsersScreen = () => {
 
     getOrganizationUsersByID();
   }, []);
+
   return (
     <View>
       <FlatList
@@ -52,7 +52,7 @@ export const UsersScreen = () => {
               { borderColor: "gray" },
             ]}
             onPress={() => {
-              navigation.navigate("userDetails", { user: item });
+              navigation.navigate("ViewUser", { user: item });
             }}
           >
             <View style={tw`flex flex-row`}>
