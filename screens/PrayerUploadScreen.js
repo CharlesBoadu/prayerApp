@@ -83,13 +83,13 @@ const PrayerUploadScreen = () => {
           position={toastPosition}
         />
       )}
-      <Text style={tw`text-lg font-bold p-4`}>Select Prayer Category</Text>
       <Picker
-        selectedValue={values.category ? values.category : "Health"}
+        selectedValue={values.category ? values.category : "Select Prayer Category"}
         onValueChange={(itemValue, itemIndex) =>
           setValues({ ...values, category: itemValue })
         }
       >
+        <Picker.Item label="Select Prayer Category" value="" />
         <Picker.Item label="Health" value="Health" />
         <Picker.Item label="Wealth" value="Wealth" />
         <Picker.Item label="Warfare" value="Warfare" />

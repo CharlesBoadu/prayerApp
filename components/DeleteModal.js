@@ -2,12 +2,13 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import tw from "tailwind-react-native-classnames";
 
-export const Modal = ({ prayer, setShowModal, modalOptions, action }) => {
+
+export const DeleteModal = ({ user, setShowModal, modalOptions, action }) => {
   return (
     <View style={tw`bg-white w-60 rounded-lg`}>
       <View style={tw`py-4 px-2 border-b border-gray-200`}>
         <Text style={tw`text-center text-lg font-bold`}>
-          {prayer?.scripture || prayer?.first_name + " " + prayer?.last_name}
+          {prayer?.scripture}
         </Text>
       </View>
       <TouchableOpacity
