@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Picker } from "@react-native-picker/picker";
@@ -155,13 +155,8 @@ export const ViewUserScreen = ({ route }) => {
         </View>
       )}
       <View>
-        <View
-          style={tw`${showUpdate ? 'h-24 w-24' : 'h-48 w-48'} mx-auto rounded-full bg-gray-400 my-10 flex items-center justify-center`}
-        >
-          <UserIcon name="user" size={showUpdate ? 50 : 100} style={tw`text-white`} />
-        </View>
         {showUpdate && (
-          <ScrollView style={{ display: "flex", height: "50vh"}}>
+          <ScrollView style={{ display: "flex", height: "50vh", padding: 20 }}>
             <Text style={tw`pl-3 font-semibold`}>First Name</Text>
             <TextInput
               style={styles.input}
@@ -198,9 +193,7 @@ export const ViewUserScreen = ({ route }) => {
               onChangeText={(text) => handleInputChange("phone", text)}
             />
             <Picker
-              selectedValue={
-                formData.role ? formData.role : "Select Role"
-              }
+              selectedValue={formData.role ? formData.role : "Select Role"}
               onValueChange={(itemValue, itemIndex) => {
                 handleInputChange("role", itemValue);
               }}
@@ -211,6 +204,15 @@ export const ViewUserScreen = ({ route }) => {
               <Picker.Item label="User" value="User" />
             </Picker>
             <View style={tw`flex flex-row justify-end`}>
+              <TouchableOpacity
+                style={tw`rounded-lg bg-red-600 mr-2 py-2 px-4 flex flex-row`}
+                onPress={() => setShowUpdate(false)}
+              >
+                <View style={tw`mr-2 pt-1`}>
+                  <EditIcon name="edit" color={"white"} />
+                </View>
+                <Text style={tw`text-white`}>Cancel</Text>
+              </TouchableOpacity>
               <TouchableOpacity
                 style={tw`rounded-lg bg-blue-600 mr-2 py-2 px-4 flex flex-row`}
                 onPress={handleUpdateUser}
@@ -225,6 +227,17 @@ export const ViewUserScreen = ({ route }) => {
         )}
         {!showUpdate && (
           <View>
+            <View
+              style={tw`${
+                showUpdate ? "h-24 w-24" : "h-48 w-48"
+              } mx-auto rounded-full bg-gray-400 my-10 flex items-center justify-center`}
+            >
+              <UserIcon
+                name="user"
+                size={showUpdate ? 50 : 100}
+                style={tw`text-white`}
+              />
+            </View>
             <Text style={tw`text-center text-lg font-semibold`}>
               {user?.first_name} {user?.last_name}
             </Text>
