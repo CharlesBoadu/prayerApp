@@ -5,9 +5,11 @@ import tw from "tailwind-react-native-classnames";
 import { Picker } from "@react-native-picker/picker";
 import ShowToastWithGravityAndOffset from "../components/Toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const AddUserScreen = () => {
   let toastPosition = 10;
+  const navigation = useNavigation();
   const [currentStep, setCurrentStep] = useState(1);
   const [progressValue, setProgressValue] = useState(0.5);
   const [type, setType] = useState("");
@@ -83,6 +85,7 @@ const AddUserScreen = () => {
         setType("success");
         setTimeout(() => {
           setShowToast(false);
+          navigation.navigate("Home");
         }, 2000);
         setFormData({});
       } else {

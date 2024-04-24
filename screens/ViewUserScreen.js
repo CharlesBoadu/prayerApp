@@ -50,7 +50,7 @@ export const ViewUserScreen = ({ route }) => {
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
-        age: user.age,
+        age: String(user.age),
         phone: user.phone,
         role: user.role,
         organization: user.organization,
@@ -63,7 +63,7 @@ export const ViewUserScreen = ({ route }) => {
   const handleDeleteUser = async () => {
     try {
       const response = await fetch(`http://127.0.0.1:5000/api/v1/user`, {
-        method: "POST", // Change the method as needed
+        method: "DELETE", // Change the method as needed
         headers: {
           "Content-Type": "application/json",
         },
@@ -79,6 +79,7 @@ export const ViewUserScreen = ({ route }) => {
         setType("success");
         setTimeout(() => {
           setShowToast(false);
+          navigation.navigate("Home");
         }, 2000);
       } else {
         setShowToast(true);
@@ -110,7 +111,7 @@ export const ViewUserScreen = ({ route }) => {
         setType("success");
         setTimeout(() => {
           setShowToast(false);
-          navigation.goBack();
+          navigation.navigate("viewUsers");
         }, 2000);
       } else {
         setShowToast(true);
