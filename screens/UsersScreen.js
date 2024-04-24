@@ -65,7 +65,7 @@ export const UsersScreen = () => {
                 <Text style={[tw`font-semibold pt-2`]}>
                   {item?.first_name + " " + item?.last_name}
                 </Text>
-                <Text style={[tw`${item.role === 'Global Admin' ? 'text-green-500' : item?.role === 'Admin' ? 'text-blue-500': 'text-red-500'}`]}>{item?.role}</Text>
+                <Text style={[tw`${item.role.toLowerCase() === 'global admin' ? 'text-green-500' : item?.role === 'Admin' ? 'text-blue-500': 'text-red-500'}`]}>{item?.role}</Text>
               </View>
             </View>
             <View style={tw`flex flex-row justify-end`}>

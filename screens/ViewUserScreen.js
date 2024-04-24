@@ -18,6 +18,7 @@ import DeleteIcon from "react-native-vector-icons/AntDesign";
 import { Modal } from "../components/Modal";
 import ShowToastWithGravityAndOffset from "../components/Toast";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const ViewUserScreen = ({ route }) => {
   const { user } = route.params;
@@ -27,6 +28,7 @@ export const ViewUserScreen = ({ route }) => {
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState("");
   const [showUpdate, setShowUpdate] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState({});
   const [formData, setFormData] = useState({
     user_id: "",
     first_name: "",
@@ -57,8 +59,20 @@ export const ViewUserScreen = ({ route }) => {
         organization_id: user.organization_id,
       });
     };
+    const getLoggedInUser = async () => {
+      const userString = await AsyncStorage.getItem("user");
+      if (userString) {
+        const user = JSON.parse(userString); // Parse the string back to an object
+        setLoggedInUser(user);
+      }
+    }
+
+
     getUser();
+    getLoggedInUser();
   }, []);
+
+  console.log("Logged In User: ", loggedInUser);
 
   const handleDeleteUser = async () => {
     try {
@@ -111,7 +125,7 @@ export const ViewUserScreen = ({ route }) => {
         setType("success");
         setTimeout(() => {
           setShowToast(false);
-          navigation.navigate("viewUsers");
+          navigation.navigate("Home");
         }, 2000);
       } else {
         setShowToast(true);
@@ -274,30 +288,32 @@ export const ViewUserScreen = ({ route }) => {
                 <Text style={tw`text-lg`}>{user?.organization}</Text>
               </View>
             </View>
-            <View style={tw`flex flex-row justify-end mt-5`}>
-              <TouchableOpacity
-                style={tw`rounded-lg bg-blue-600 mr-2 py-2 px-4 flex flex-row`}
-                onPress={() => {
-                  setShowUpdate(true);
-                }}
-              >
-                <View style={tw`mr-2 pt-1`}>
-                  <EditIcon name="edit" color={"white"} />
-                </View>
-                <Text style={tw`text-white`}>Update</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={tw`rounded-lg bg-red-600 mr-2 py-2 px-4 flex flex-row`}
-                onPress={() => {
-                  setShowModal(true);
-                }}
-              >
-                <View style={tw`mr-2 pt-1`}>
-                  <DeleteIcon name="delete" color={"white"} />
-                </View>
-                <Text style={tw`text-white`}>Delete</Text>
-              </TouchableOpacity>
-            </View>
+            {loggedInUser?.role?.toLowerCase() === "global admin" && (
+              <View style={tw`flex flex-row justify-end mt-5`}>
+                <TouchableOpacity
+                  style={tw`rounded-lg bg-blue-600 mr-2 py-2 px-4 flex flex-row`}
+                  onPress={() => {
+                    setShowUpdate(true);
+                  }}
+                >
+                  <View style={tw`mr-2 pt-1`}>
+                    <EditIcon name="edit" color={"white"} />
+                  </View>
+                  <Text style={tw`text-white`}>Update</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={tw`rounded-lg bg-red-600 mr-2 py-2 px-4 flex flex-row`}
+                  onPress={() => {
+                    setShowModal(true);
+                  }}
+                >
+                  <View style={tw`mr-2 pt-1`}>
+                    <DeleteIcon name="delete" color={"white"} />
+                  </View>
+                  <Text style={tw`text-white`}>Delete</Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         )}
       </View>
