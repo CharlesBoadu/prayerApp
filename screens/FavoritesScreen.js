@@ -33,12 +33,12 @@ export const FavoritesScreen = () => {
   const [message, setMessage] = useState("");
   let modalOption = {
     option_name: "Remove From Favorites",
-  };
+  }; 
 
   const handleRemoveFromFavorites = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/api/v1/user/favorite_prayers",
+        "http://127.0.0.1:5000/api/v1/user/favorite-prayers",
         {
           method: "DELETE",
           headers: {

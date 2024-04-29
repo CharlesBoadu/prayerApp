@@ -51,7 +51,7 @@ export const PrayerCategoryScreen = () => {
   const handleAddToFavorites = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/api/v1/favorite_prayers/new",
+        "http://127.0.0.1:5000/api/v1/favorite-prayers/new",
         {
           method: "POST",
           headers: {

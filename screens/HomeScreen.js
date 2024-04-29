@@ -2,7 +2,7 @@ import { Text, View } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { PrayerAppProvider, usePrayerAppContext } from "../Store/context";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AllPrayersScreen } from "./AllPrayersScreen";
 import { NotificationsScreen } from "../screens/NotificationsScreen";
@@ -13,7 +13,16 @@ import { SettingsScreen } from "./SettingsScreen";
 const Tab = createBottomTabNavigator();
 
 export const AppNavigator = () => {
-  const { favoritesCount } = usePrayerAppContext();
+  const { favoritesCount, fetchFavoritePrayerByUser, triggerFetch, setTriggerFetch } =
+    usePrayerAppContext();
+
+  useEffect(() => {
+    fetchFavoritePrayerByUser();
+  }, [
+    triggerFetch,
+    setTriggerFetch,
+    fetchFavoritePrayerByUser,
+  ]);
 
   return (
     <Tab.Navigator
@@ -50,7 +59,13 @@ export const AppNavigator = () => {
               {favoritesCount === 0 ? null : (
                 <View
                   style={[
-                    { backgroundColor: "#cfd3d3", marginLeft: "-5%", marginTop: "-3%", height: 22, width: 20},
+                    {
+                      backgroundColor: "#cfd3d3",
+                      marginLeft: "-5%",
+                      marginTop: "-3%",
+                      height: 22,
+                      width: 20,
+                    },
                     tw`rounded-full opacity-90 flex items-center justify-center`,
                   ]}
                 >
@@ -107,7 +122,6 @@ export const AppNavigator = () => {
 };
 
 export const HomeScreen = () => {
-
   return (
     <PrayerAppProvider>
       <AppNavigator />

@@ -16,47 +16,47 @@ export const PrayerAppProvider = ({ children }) => {
   const [triggerFetch, setTriggerFetch] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const fetchPrayers = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/api/v1/prayers");
+      const data = await response.json();
+      setFetchedPrayers(data?.data);
+      // setTimeout(() => {
+      //   setLoading(false);
+      // }, 2000);
+    } catch (error) {
+      console.error("Error Fetching All Prayers:", error);
+    }
+  };
+
+  const fetchFavoritePrayerByUser = async () => {
+    const user = await AsyncStorage.getItem("user");
+    const userData = JSON.parse(user);
+
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:5000/api/v1/user/favorite-prayers",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user_id: userData?.id }),
+        }
+      );
+      const data = await response.json();
+      setFavoritePrayers(data?.data);
+      setFavoritesCount(data?.data.length);
+    } catch (error) {
+      console.error("Error Fetching Favorite Prayers:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchPrayers = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:5000/api/v1/prayers");
-        const data = await response.json();
-        setFetchedPrayers(data?.data);
-        // setTimeout(() => {
-        //   setLoading(false);
-        // }, 2000);
-      } catch (error) {
-        console.error("Error Fetching All Prayers:", error);
-      }
-    };
-
-    const fetchFavoritePrayerByUser = async () => {
-      const user = await AsyncStorage.getItem("user");
-      const userData = JSON.parse(user);
-
-      try {
-        const response = await fetch(
-          "http://127.0.0.1:5000/api/v1/user/favorite_prayers",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ user_id: userData?.id }),
-          }
-        );
-        const data = await response.json();
-        setFavoritePrayers(data?.data);
-        setFavoritesCount(data?.data.length);
-      } catch (error) {
-        console.error("Error Fetching Favorite Prayers:", error);
-      }
-    };
-
     setTimeout(() => {
       setLoading(false);
     }, 2000);
- 
+
     fetchPrayers();
     fetchFavoritePrayerByUser();
   }, [triggerFetch]);
@@ -83,6 +83,8 @@ export const PrayerAppProvider = ({ children }) => {
         setSelectedPrayerCategory,
         triggerFetch,
         setTriggerFetch,
+        fetchPrayers,
+        fetchFavoritePrayerByUser,
       }}
     >
       {children}
