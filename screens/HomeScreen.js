@@ -13,16 +13,12 @@ import { SettingsScreen } from "./SettingsScreen";
 const Tab = createBottomTabNavigator();
 
 export const AppNavigator = () => {
-  const { favoritesCount, fetchFavoritePrayerByUser, triggerFetch, setTriggerFetch } =
+  const { favoritesCount, fetchFavoritePrayerByUser, triggerFetch } =
     usePrayerAppContext();
 
   useEffect(() => {
     fetchFavoritePrayerByUser();
-  }, [
-    triggerFetch,
-    setTriggerFetch,
-    fetchFavoritePrayerByUser,
-  ]);
+  }, [triggerFetch]);
 
   return (
     <Tab.Navigator

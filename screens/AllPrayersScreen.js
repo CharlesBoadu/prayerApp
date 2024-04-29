@@ -15,6 +15,7 @@ import ProtectionIcon from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { usePrayerAppContext } from "../Store/context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ScrollView } from "react-native-gesture-handler";
 
 export const AllPrayersScreen = () => {
   const navigation = useNavigation();
@@ -44,7 +45,7 @@ export const AllPrayersScreen = () => {
           </View>
         </View>
       </View>
-      <View style={tw`m-8`}>
+      <ScrollView style={[tw`m-8`, {display: "flex", flex: 1, overflow: "scroll"}]}>
         <View style={[tw`mb-8`, styles.prayerCategories]}>
           <TouchableOpacity onPress={handleNavigation.bind(this, "Health")}>
             <View
@@ -126,7 +127,7 @@ export const AllPrayersScreen = () => {
             </View>
           </View>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -134,6 +135,9 @@ export const AllPrayersScreen = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#061551",
+    display: "flex",
+    // flex: 0.5,
+    
   },
   header: {
     flexDirection: "row",
