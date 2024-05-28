@@ -76,7 +76,7 @@ export const ViewUserScreen = ({ route }) => {
 
   const handleDeleteUser = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/v1/user`, {
+      const response = await fetch(`http://127.0.0.1:5005/api/v1/user`, {
         method: "DELETE", // Change the method as needed
         headers: {
           "Content-Type": "application/json",
@@ -111,7 +111,7 @@ export const ViewUserScreen = ({ route }) => {
   const handleUpdateUser = async () => {
     console.log("Form Data: ", formData);
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/v1/user`, {
+      const response = await fetch(`http://127.0.0.1:5005/api/v1/user`, {
         method: "PUT", // Change the method as needed
         headers: {
           "Content-Type": "application/json",

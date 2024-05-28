@@ -18,7 +18,7 @@ export const PrayerAppProvider = ({ children }) => {
 
   const fetchPrayers = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/v1/prayers");
+      const response = await fetch("http://127.0.0.1:5005/api/v1/prayers");
       const data = await response.json();
       setFetchedPrayers(data?.data);
       // setTimeout(() => {
@@ -35,7 +35,7 @@ export const PrayerAppProvider = ({ children }) => {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/api/v1/user/favorite-prayers",
+        "http://127.0.0.1:5005/api/v1/user/favorite-prayers",
         {
           method: "POST",
           headers: {

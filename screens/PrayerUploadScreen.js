@@ -37,7 +37,7 @@ const PrayerUploadScreen = () => {
   const handlePrayerUpload = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://127.0.0.1:5000/api/v1/prayer/new`, {
+      const response = await fetch(`http://127.0.0.1:5005/api/v1/prayer/new`, {
         method: "POST", // Change the method as needed
         headers: {
           "Content-Type": "application/json",

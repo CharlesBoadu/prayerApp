@@ -16,7 +16,7 @@ export const UsersScreen = () => {
       const fetchUsers = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:5000/api/v1/users/organization",
+            "http://127.0.0.1:5005/api/v1/users/organization",
             {
               method: "POST",
               headers: {
