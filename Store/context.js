@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import AllFetchesApi from "./authApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import prayersApi from "./prayersApi";
-
+import favoritesApi from "./favoritesApi";
 
 export const PrayerAppContext = createContext({});
 
@@ -21,8 +21,8 @@ export const PrayerAppProvider = ({ children }) => {
   const fetchPrayers = async () => {
     try {
       const response = await prayersApi.getAllPrayers();
-      const data = await response.json();
-      setFetchedPrayers(data?.data);
+      console.log("Fetched Resonose:", response)
+      setFetchedPrayers(response?.data);
     } catch (error) {
       console.error("Error Fetching All Prayers:", error);
     }
@@ -35,21 +35,12 @@ export const PrayerAppProvider = ({ children }) => {
     const userData = JSON.parse(user);
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:5005/api/v1/user/favorite-prayers",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `${token}`
-          },
-          body: JSON.stringify({ user_id: userData?.id }),
-        }
-      );
-      const data = await response.json();
-      setFavoritePrayers(data?.data);
-      setFavoritesCount(data?.data.length);
+      const response = favoritesApi.getFavoritePrayersByUser({
+        user_id: userData?.id,
+      });
+      // const data = await response.json();
+      setFavoritePrayers(response?.data);
+      setFavoritesCount(response?.data.length);
     } catch (error) {
       console.error("Error Fetching Favorite Prayers:", error);
     }

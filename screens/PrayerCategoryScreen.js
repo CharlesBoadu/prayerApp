@@ -16,6 +16,7 @@ import { FlatList } from "react-native-gesture-handler";
 import tw from "tailwind-react-native-classnames";
 import { Modal } from "../components/Modal";
 import ShowToastWithGravityAndOffset from "../components/Toast";
+import favoritesApi from "../Store/favoritesApi";
 
 export const PrayerCategoryScreen = () => {
   const navigation = useNavigation();
@@ -50,22 +51,29 @@ export const PrayerCategoryScreen = () => {
 
   const handleAddToFavorites = async () => {
     try {
-      const response = await fetch(
-        "http://127.0.0.1:5005/api/v1/favorite-prayers/new",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prayer_id: selectedPrayer?.id,
-            prayer: selectedPrayer.prayer,
-            scripture: selectedPrayer.scripture,
-            category: selectedPrayer.category,
-            user_id: selectedPrayer.user_id,
-          }),
-        }
-      );
+      const response = favoritesApi.addFavoritePrayer({
+        prayer_id: selectedPrayer?.id,
+        prayer: selectedPrayer.prayer,
+        scripture: selectedPrayer.scripture,
+        category: selectedPrayer.category,
+        user_id: selectedPrayer.user_id,
+      });
+      // const response = await fetch(
+      //   "http://127.0.0.1:5005/api/v1/favorite-prayers/new",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       prayer_id: selectedPrayer?.id,
+      //       prayer: selectedPrayer.prayer,
+      //       scripture: selectedPrayer.scripture,
+      //       category: selectedPrayer.category,
+      //       user_id: selectedPrayer.user_id,
+      //     }),
+      //   }
+      // );
       const data = await response.json();
       if (data.statusCode === "PA00") {
         setShowToast(true);
