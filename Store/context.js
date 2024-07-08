@@ -33,13 +33,15 @@ export const PrayerAppProvider = ({ children }) => {
   const fetchFavoritePrayerByUser = async () => {
     const user = await AsyncStorage.getItem("user");
     const userData = JSON.parse(user);
+    // console.log("User Data:", userData)
 
     try {
-      const response = favoritesApi.getFavoritePrayersByUser({
+      const response = await favoritesApi.getFavoritePrayersByUser({
         user_id: userData?.id,
       });
+      // console.log("Favorite Prayers:", response);
       // const data = await response.json();
-      setFavoritePrayers(response?.data);
+      setFavoritePrayers(response?.data || []);
       setFavoritesCount(response?.data.length);
     } catch (error) {
       console.error("Error Fetching Favorite Prayers:", error);
@@ -53,7 +55,9 @@ export const PrayerAppProvider = ({ children }) => {
 
     fetchPrayers();
     fetchFavoritePrayerByUser();
-  }, [triggerFetch]);
+  }, [
+    // triggerFetch
+  ]);
 
   return (
     <PrayerAppContext.Provider

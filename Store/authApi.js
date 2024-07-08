@@ -11,5 +11,5 @@ const login = async (data) => {
   }
 };
 
-export default login;
+export default {login};
 

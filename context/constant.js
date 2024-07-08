@@ -1,9 +1,8 @@
-const BASE_URL = process.env.BASE_URL;
-const token = process.env.PRAYER_TOKEN;
+const BASE_URL = process.env['BASE_URL'];
+const token = process.env['PRAYER_TOKEN'];
 
 console.log('BASE_URL:', BASE_URL);
 console.log('token:', token);
-
 
 const API_URL = {
     get: async (url, authRequired = true) => {

@@ -47,15 +47,15 @@ const CustomTabBarButton = ({ children, onPress }) => (
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const getUser = async () => {
-      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
-      setIsLoggedIn(isLoggedIn);
-    };
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
+  //     setIsLoggedIn(isLoggedIn);
+  //   };
 
-    getUser();
-  }, [isLoggedIn]);
-  console.log("IsLoggedIn", isLoggedIn);
+  //   getUser();
+  // }, [isLoggedIn]);
+  // console.log("IsLoggedIn", isLoggedIn);
 
   return (
     <PrayerAppProvider>

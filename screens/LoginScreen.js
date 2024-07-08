@@ -40,7 +40,8 @@ export const LoginScreen = () => {
   const handleLogin = async () => {
     try {
       setLoading(true);
-      const response = await loginApi.post(values);
+      const response = await loginApi.login(values);
+      console.log("Login Response:", response);
       const data = await response.json();
       if (data.statusCode === "PA00") {
         await AsyncStorage.setItem("user", JSON.stringify(data.data));
