@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import AllFetchesApi from "./api";
+import AllFetchesApi from "./authApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import prayersApi from "./prayersApi";
+
 
 export const PrayerAppContext = createContext({});
 
@@ -18,16 +20,15 @@ export const PrayerAppProvider = ({ children }) => {
 
   const fetchPrayers = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5005/api/v1/prayers");
+      const response = await prayersApi.getAllPrayers();
       const data = await response.json();
       setFetchedPrayers(data?.data);
-      // setTimeout(() => {
-      //   setLoading(false);
-      // }, 2000);
     } catch (error) {
       console.error("Error Fetching All Prayers:", error);
     }
   };
+
+  console.log("Fetched Prayers:", fetchedPrayers);
 
   const fetchFavoritePrayerByUser = async () => {
     const user = await AsyncStorage.getItem("user");
@@ -40,6 +41,8 @@ export const PrayerAppProvider = ({ children }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `${token}`
           },
           body: JSON.stringify({ user_id: userData?.id }),
         }

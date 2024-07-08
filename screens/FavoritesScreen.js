@@ -20,6 +20,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FavoriteIcon from "react-native-vector-icons/Fontisto";
 import { usePrayerAppContext } from "../Store/context";
 import ShowToastWithGravityAndOffset from "../components/Toast";
+const token = process.env.PRAYER_TOKEN;
 
 export const FavoritesScreen = () => {
   const toastPosition = 70;
@@ -43,6 +44,8 @@ export const FavoritesScreen = () => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `${token}`,
           },
           body: JSON.stringify({
             prayer_id: selectedFavorite?.id,

@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import ShowToastWithGravityAndOffset from "../components/Toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import loginApi from "../Store/authApi";
 
 export const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -39,13 +40,7 @@ export const LoginScreen = () => {
   const handleLogin = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://127.0.0.1:5005/api/v1/login`, {
-        method: "POST", // Change the method as needed
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+      const response = await loginApi.post(values);
       const data = await response.json();
       if (data.statusCode === "PA00") {
         await AsyncStorage.setItem("user", JSON.stringify(data.data));
