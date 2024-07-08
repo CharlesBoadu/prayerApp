@@ -43,7 +43,7 @@ export const FavoritesScreen = () => {
       });
       if (response.statusCode === "PA00") {
         setShowToast(true);
-        setMessage(data?.message);
+        setMessage(response?.message);
         setType("success");
         setTriggerFetch(!triggerFetch);
         setShowToast(false);

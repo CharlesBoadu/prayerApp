@@ -33,7 +33,7 @@ const getFavoritePrayersByUser = async (data) => {
 const removeFavoritePrayerByUser = async (data) => {
   let url = `/user/favorite-prayer`;
   try {
-    const response = await API_URL.post(url, data);
+    const response = await API_URL.delete(url, data);
     return response;
   } catch (error) {
     throw error;
