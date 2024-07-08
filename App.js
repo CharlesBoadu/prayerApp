@@ -11,6 +11,7 @@ import { NewPasswordScreen } from "./screens/NewPasswordScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { PrayerAppProvider, usePrayerAppContext } from "./Store/context";
 import Toast from "react-native-toast-message";
+import { name as appName } from './app.json';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AboutScreen from "./screens/AboutScreen";
 import PrayerUploadScreen from "./screens/PrayerUploadScreen";
@@ -18,6 +19,9 @@ import { PrayerCategoryScreen } from "./screens/PrayerCategoryScreen";
 import AddUserScreen from "./screens/AddUserScreen";
 import { UsersScreen } from "./screens/UsersScreen";
 import { ViewUserScreen } from "./screens/ViewUserScreen";
+import { AppRegistry } from 'react-native';
+import { store } from "./src/store";
+import { Provider } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -58,76 +62,81 @@ export default function App() {
   // console.log("IsLoggedIn", isLoggedIn);
 
   return (
-    <PrayerAppProvider>
-      <Toast />
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={"Auth"}>
-          <Stack.Screen
-            name="Auth"
-            component={AuthScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Reset" component={ResetScreen} />
-          <Stack.Screen
-            name="NewPassword"
-            component={NewPasswordScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="About"
-            component={AboutScreen}
-            options={{
-              headerBackTitle: "Settings",
-            }}
-          />
-          <Stack.Screen
-            name="PrayerCategory"
-            component={PrayerCategoryScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="PrayerUpload"
-            component={PrayerUploadScreen}
-            options={{
-              headerBackTitle: "Settings",
-              headerTitle: "Upload Prayer",
-            }}
-          />
-          <Stack.Screen
-            name="addUser"
-            component={AddUserScreen}
-            options={{
-              headerBackTitle: "Settings",
-              headerTitle: "Add New User",
-            }}
-          />
-          <Stack.Screen
-            name="viewUsers"
-            component={UsersScreen}
-            options={{
-              headerBackTitle: "Settings",
-              headerTitle: "All Users",
-            }}
-          />
-          <Stack.Screen
-            name="ViewUser"
-            component={ViewUserScreen}
-            options={{
-              headerBackTitle: "Settings",
-              headerTitle: "User Details",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PrayerAppProvider>
+    <Provider store={store}>
+      <PrayerAppProvider>
+        <Toast />
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName={"Auth"}>
+            <Stack.Screen
+              name="Auth"
+              component={AuthScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen name="Reset" component={ResetScreen} />
+            <Stack.Screen
+              name="NewPassword"
+              component={NewPasswordScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="About"
+              component={AboutScreen}
+              options={{
+                headerBackTitle: "Settings",
+              }}
+            />
+            <Stack.Screen
+              name="PrayerCategory"
+              component={PrayerCategoryScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="PrayerUpload"
+              component={PrayerUploadScreen}
+              options={{
+                headerBackTitle: "Settings",
+                headerTitle: "Upload Prayer",
+              }}
+            />
+            <Stack.Screen
+              name="addUser"
+              component={AddUserScreen}
+              options={{
+                headerBackTitle: "Settings",
+                headerTitle: "Add New User",
+              }}
+            />
+            <Stack.Screen
+              name="viewUsers"
+              component={UsersScreen}
+              options={{
+                headerBackTitle: "Settings",
+                headerTitle: "All Users",
+              }}
+            />
+            <Stack.Screen
+              name="ViewUser"
+              component={ViewUserScreen}
+              options={{
+                headerBackTitle: "Settings",
+                headerTitle: "User Details",
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PrayerAppProvider>
+    </Provider>
   );
 }
+
+
+AppRegistry.registerComponent(appName, () => App);
