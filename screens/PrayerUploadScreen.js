@@ -6,6 +6,7 @@ import UploadIcon from "react-native-vector-icons/Feather";
 import ShowToastWithGravityAndOffset from "../components/Toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePrayerAppContext } from "../Store/context";
+import prayersApi from "../Store/prayersApi";
 
 const PrayerUploadScreen = () => {
   let toastPosition = 10;
@@ -37,17 +38,10 @@ const PrayerUploadScreen = () => {
   const handlePrayerUpload = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://127.0.0.1:5005/api/v1/prayer/new`, {
-        method: "POST", // Change the method as needed
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      const data = await response.json();
-      if (data.statusCode === "PA00") {
+      const response = await prayersApi.addPrayer(values);
+      if (response.statusCode === "PA00") {
         setShowToast(true);
-        setMessage(data.message);
+        setMessage(response.message);
         setType("success");
         setTimeout(() => {
           setShowToast(false);
@@ -62,7 +56,7 @@ const PrayerUploadScreen = () => {
       } else {
         setShowToast(true);
         setType("error");
-        setMessage(data.message);
+        setMessage(response.message);
         setTimeout(() => {
           setShowToast(false);
         }, 2000);
