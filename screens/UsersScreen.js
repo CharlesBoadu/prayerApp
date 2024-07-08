@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import UserIcon from "react-native-vector-icons/FontAwesome";
 import tw from "tailwind-react-native-classnames";
+import usersApi from "../Store/usersApi";
 
 export const UsersScreen = () => {
   const [fetchedUsers, setFetchedUsers] = useState([]);
@@ -13,22 +14,11 @@ export const UsersScreen = () => {
     const getOrganizationUsersByID = async () => {
       const user = await AsyncStorage.getItem("user");
       const userData = JSON.parse(user);
+
       const fetchUsers = async () => {
         try {
-          const response = await fetch(
-            "http://127.0.0.1:5005/api/v1/users/organization",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                organization_id: userData?.organization_id,
-              }),
-            }
-          );
-          const data = await response.json();
-          setFetchedUsers(data?.data);
+          const response = await usersApi.getAllUsers();
+          setFetchedUsers(response?.data);
         } catch (error) {
           console.error("Error Fetching All Users By Organization:", error);
         }
@@ -61,11 +51,23 @@ export const UsersScreen = () => {
               >
                 <UserIcon name="user" size={20} style={tw``} />
               </View>
-              <View style={[{margin: "0 auto"}]}>
+              <View style={[{ margin: "0 auto" }]}>
                 <Text style={[tw`font-semibold pt-2`]}>
                   {item?.first_name + " " + item?.last_name}
                 </Text>
-                <Text style={[tw`${item.role.toLowerCase() === 'global admin' ? 'text-green-500' : item?.role === 'Admin' ? 'text-blue-500': 'text-red-500'}`]}>{item?.role}</Text>
+                <Text
+                  style={[
+                    tw`${
+                      item.role.toLowerCase() === "global admin"
+                        ? "text-green-500"
+                        : item?.role === "Admin"
+                        ? "text-blue-500"
+                        : "text-red-500"
+                    }`,
+                  ]}
+                >
+                  {item?.role}
+                </Text>
               </View>
             </View>
             <View style={tw`flex flex-row justify-end`}>

@@ -52,7 +52,6 @@ export const PrayerCategoryScreen = () => {
   const handleAddToFavorites = async () => {
     try {
       const response = await favoritesApi.addFavoritePrayer({
-        // prayer_id: selectedPrayer?.id,
         prayer: selectedPrayer.prayer,
         scripture: selectedPrayer.scripture,
         category: selectedPrayer.category,
