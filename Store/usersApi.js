@@ -20,6 +20,16 @@ const getAllUsersByOrganization = async (data) => {
   }
 };
 
+const addNewUser = async (data) => {
+  let url = `/users`;
+  try {
+    const response = await API_URL.post(url, data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getUser = async (data) => {
   let url = `/users`;
   try {

@@ -19,6 +19,7 @@ import { Modal } from "../components/Modal";
 import ShowToastWithGravityAndOffset from "../components/Toast";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import usersApi from "../Store/usersApi";
 
 export const ViewUserScreen = ({ route }) => {
   const { user } = route.params;
@@ -72,7 +73,7 @@ export const ViewUserScreen = ({ route }) => {
     getLoggedInUser();
   }, []);
 
-  console.log("Logged In User: ", loggedInUser);
+  // console.log("Logged In User: ", loggedInUser);
 
   const handleDeleteUser = async () => {
     try {
@@ -109,17 +110,10 @@ export const ViewUserScreen = ({ route }) => {
   };
 
   const handleUpdateUser = async () => {
-    console.log("Form Data: ", formData);
+    // console.log("Form Data: ", formData);
     try {
-      const response = await fetch(`http://127.0.0.1:5005/api/v1/user`, {
-        method: "PUT", // Change the method as needed
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      if (data.statusCode === "PA00") {
+      const response = await usersApi.updateUser(formData);
+      if (response.statusCode === "PA00") {
         setShowToast(true);
         setMessage(data.message);
         setType("success");
@@ -130,7 +124,7 @@ export const ViewUserScreen = ({ route }) => {
       } else {
         setShowToast(true);
         setType("error");
-        setMessage(data.message);
+        setMessage(response.message);
         setTimeout(() => {
           setShowToast(false);
         }, 2000);
