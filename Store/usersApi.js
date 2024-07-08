@@ -10,6 +10,16 @@ const getAllUsers = async () => {
   }
 };
 
+const getAllUsersByOrganization = async (data) => {
+  let url = `/users/organization`;
+  try {
+    const response = await API_URL.post(url, data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getUser = async (data) => {
   let url = `/users`;
   try {
@@ -40,4 +50,4 @@ const updateUser = async (data) => {
   }
 };
 
-export default { getAllUsers, getUser, removeUser, updateUser };
+export default { getAllUsers, getUser, removeUser, updateUser, getAllUsersByOrganization };

@@ -17,7 +17,9 @@ export const UsersScreen = () => {
 
       const fetchUsers = async () => {
         try {
-          const response = await usersApi.getAllUsers();
+          const response = await usersApi.getAllUsersByOrganization({
+            organization_id: userData?.organization_id,
+          });
           setFetchedUsers(response?.data);
         } catch (error) {
           console.error("Error Fetching All Users By Organization:", error);
