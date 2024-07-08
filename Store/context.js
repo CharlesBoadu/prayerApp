@@ -55,9 +55,7 @@ export const PrayerAppProvider = ({ children }) => {
 
     fetchPrayers();
     fetchFavoritePrayerByUser();
-  }, [
-    triggerFetch
-  ]);
+  }, [triggerFetch]);
 
   return (
     <PrayerAppContext.Provider

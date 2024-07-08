@@ -50,12 +50,16 @@ export const PrayerCategoryScreen = () => {
   }, []);
 
   const handleAddToFavorites = async () => {
+    const user = await AsyncStorage.getItem("user");
+    const userData = JSON.parse(user);
+
     try {
       const response = await favoritesApi.addFavoritePrayer({
+        prayer_id: selectedPrayer.id,
         prayer: selectedPrayer.prayer,
         scripture: selectedPrayer.scripture,
         category: selectedPrayer.category,
-        user_id: selectedPrayer.user_id,
+        user_id: userData?.id,
       });
       if (response.statusCode === "PA00") {
         setShowToast(true);
