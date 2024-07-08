@@ -40,4 +40,9 @@ const removeFavoritePrayerByUser = async (data) => {
   }
 };
 
-export default { getAllFavoritePrayers, addFavoritePrayer, getFavoritePrayersByUser, removeFavoritePrayerByUser };
+export default {
+  getAllFavoritePrayers,
+  addFavoritePrayer,
+  getFavoritePrayersByUser,
+  removeFavoritePrayerByUser,
+};

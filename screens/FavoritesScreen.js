@@ -18,6 +18,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FavoriteIcon from "react-native-vector-icons/Fontisto";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePrayerAppContext } from "../Store/context";
 import ShowToastWithGravityAndOffset from "../components/Toast";
 import favoritesApi from "../Store/favoritesApi";
@@ -37,9 +38,12 @@ export const FavoritesScreen = () => {
   }; 
 
   const handleRemoveFromFavorites = async () => {
+    const user = await AsyncStorage.getItem("user");
+    const userData = JSON.parse(user);
     try {
       const response = await favoritesApi.removeFavoritePrayerByUser({
-        id: selectedFavorite.id,
+        user_id: userData?.id,
+        prayer_id: selectedFavorite.id,
       });
       if (response.statusCode === "PA00") {
         setShowToast(true);

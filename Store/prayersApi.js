@@ -4,7 +4,6 @@ const getAllPrayers = async () => {
   let url = `/prayers`;
   try {
     const response = await API_URL.get(url);
-    console.log("Initial Response", response);
     return response;
   } catch (error) {
     throw error;
