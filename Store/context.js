@@ -21,14 +21,14 @@ export const PrayerAppProvider = ({ children }) => {
   const fetchPrayers = async () => {
     try {
       const response = await prayersApi.getAllPrayers();
-      console.log("Fetched Resonose:", response)
+      // console.log("Fetched Resonose:", response)
       setFetchedPrayers(response?.data);
     } catch (error) {
       console.error("Error Fetching All Prayers:", error);
     }
   };
 
-  console.log("Fetched Prayers:", fetchedPrayers);
+  // console.log("Fetched Prayers:", fetchedPrayers);
 
   const fetchFavoritePrayerByUser = async () => {
     const user = await AsyncStorage.getItem("user");

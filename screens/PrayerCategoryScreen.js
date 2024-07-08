@@ -51,31 +51,14 @@ export const PrayerCategoryScreen = () => {
 
   const handleAddToFavorites = async () => {
     try {
-      const response = favoritesApi.addFavoritePrayer({
-        prayer_id: selectedPrayer?.id,
+      const response = await favoritesApi.addFavoritePrayer({
+        // prayer_id: selectedPrayer?.id,
         prayer: selectedPrayer.prayer,
         scripture: selectedPrayer.scripture,
         category: selectedPrayer.category,
         user_id: selectedPrayer.user_id,
       });
-      // const response = await fetch(
-      //   "http://127.0.0.1:5005/api/v1/favorite-prayers/new",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       prayer_id: selectedPrayer?.id,
-      //       prayer: selectedPrayer.prayer,
-      //       scripture: selectedPrayer.scripture,
-      //       category: selectedPrayer.category,
-      //       user_id: selectedPrayer.user_id,
-      //     }),
-      //   }
-      // );
-      const data = await response.json();
-      if (data.statusCode === "PA00") {
+      if (response.statusCode === "PA00") {
         setShowToast(true);
         setMessage("Prayer Added to Favorites");
         setType("success");
@@ -87,13 +70,13 @@ export const PrayerCategoryScreen = () => {
       } else {
         setShowToast(true);
         setType("error");
-        setMessage(data.message);
+        setMessage(response.message);
         setTimeout(() => {
           setShowToast(false);
         }, 2000);
       }
     } catch (error) {
-      console.error("Error Fetching Favorite Prayers:", error);
+      console.error("Error Adding Favorite Prayer:", error);
     }
   };
 

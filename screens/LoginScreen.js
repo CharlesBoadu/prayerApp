@@ -42,9 +42,8 @@ export const LoginScreen = () => {
       setLoading(true);
       const response = await loginApi.login(values);
       console.log("Login Response:", response);
-      const data = await response.json();
-      if (data.statusCode === "PA00") {
-        await AsyncStorage.setItem("user", JSON.stringify(data.data));
+      if (response.statusCode === "PA00") {
+        await AsyncStorage.setItem("user", JSON.stringify(response.data));
         await AsyncStorage.setItem("isLoggedIn", "true");
         // await AsyncStorage.setItem("initialRoute", 'Home');
         setShowToast(true);
@@ -57,7 +56,7 @@ export const LoginScreen = () => {
       } else {
         setShowToast(true);
         setType("error");
-        setMessage(data.message);
+        setMessage(response.message);
         setTimeout(() => {
           setShowToast(false);
         }, 2000);

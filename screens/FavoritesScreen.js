@@ -20,7 +20,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FavoriteIcon from "react-native-vector-icons/Fontisto";
 import { usePrayerAppContext } from "../Store/context";
 import ShowToastWithGravityAndOffset from "../components/Toast";
-const token = process.env.PRAYER_TOKEN;
+import favoritesApi from "../Store/favoritesApi";
 
 export const FavoritesScreen = () => {
   const toastPosition = 70;
@@ -38,23 +38,10 @@ export const FavoritesScreen = () => {
 
   const handleRemoveFromFavorites = async () => {
     try {
-      const response = await fetch(
-        "http://127.0.0.1:5005/api/v1/user/favorite-prayers",
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `${token}`,
-          },
-          body: JSON.stringify({
-            prayer_id: selectedFavorite?.id,
-            user_id: selectedFavorite?.user_id,
-          }),
-        }
-      );
-      const data = await response.json();
-      if (data.statusCode === "PA00") {
+      const response = await favoritesApi.removeFavoritePrayerByUser({
+        id: selectedFavorite.id,
+      });
+      if (response.statusCode === "PA00") {
         setShowToast(true);
         setMessage(data?.message);
         setType("success");
@@ -64,7 +51,7 @@ export const FavoritesScreen = () => {
       } else {
         setShowToast(true);
         setType("error");
-        setMessage(data.message);
+        setMessage(response.message);
         setTimeout(() => {
           setShowToast(false);
         }, 2000);
